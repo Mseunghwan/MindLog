@@ -37,12 +37,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding.isEnabled=true
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+    defaultConfig {
+        buildConfigField("String", "apiKey", "\"AIzaSyB3t-QgoNfPSzmcIw1I7B7SJ2rbjneinq0\"")
+    }
 }
 
 dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

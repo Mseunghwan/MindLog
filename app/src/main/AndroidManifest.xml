@@ -31,5 +31,10 @@
         <activity
             android:name=".WriteActivity"
             android:exported="false" />
+
+
+        <activity
+            android:name=".AIMenuActivity"
+            android:exported="false" />
     </application>
 </manifest>

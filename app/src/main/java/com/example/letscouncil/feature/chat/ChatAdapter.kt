@@ -1,12 +1,10 @@
-package com.example.letscouncil
-
+package com.example.letscouncil.feature.chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letscouncil.R
-import com.google.ai.sample.feature.chat.ChatMessage
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 

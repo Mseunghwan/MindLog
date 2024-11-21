@@ -1,5 +1,4 @@
-package com.google.ai.sample.feature.chat
-
+package com.example.letscouncil.feature.chat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,14 +8,13 @@ class ChatViewModel(private val generativeModel: GenerativeModel) : ViewModel() 
     private val _chatMessages = MutableLiveData<List<ChatMessage>>(emptyList())
     val chatMessages: LiveData<List<ChatMessage>> get() = _chatMessages
 
-    fun sendMessage(userMessage: String) {
-        // 사용자 메시지 추가
+    suspend fun sendMessage(userMessage: String) {
         val newMessages = _chatMessages.value.orEmpty() + ChatMessage(userMessage, isUser = true)
         _chatMessages.postValue(newMessages)
 
-        // Gemini API 호출로 AI 응답 생성
-        val aiResponse = generativeModel.generate(userMessage)
-        val updatedMessages = _chatMessages.value.orEmpty() + ChatMessage(aiResponse, isUser = false)
+        val chat = generativeModel.startChat()
+        val response = chat.sendMessage(userMessage)
+        val updatedMessages = _chatMessages.value.orEmpty() + ChatMessage(response.text?.toString() ?: "응답을 생성할 수 없습니다", isUser = false)
         _chatMessages.postValue(updatedMessages)
     }
 }

@@ -1,4 +1,4 @@
-package com.google.ai.sample.feature.chat
+package com.example.letscouncil.feature.chat
 
 data class ChatMessage(
     val content: String,
