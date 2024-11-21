@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 그라데이션 효과 -->
+    <gradient
+        android:angle="90"
+        android:startColor="#A8E063"
+    android:endColor="#56AB2F"
+    android:type="linear" />
+
+    <!-- 둥근 모서리 설정 -->
+    <corners
+        android:radius="24dp" />
+</shape>
