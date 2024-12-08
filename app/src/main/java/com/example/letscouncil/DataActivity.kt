@@ -1,40 +1,52 @@
 package com.example.letscouncil
 
-
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.letscouncil.adapter.DiaryAdapter
+import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.databinding.ActivityDataBinding
+import com.example.letscouncil.viewmodel.DiaryViewModel
 
 class DataActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDataBinding
+    private lateinit var viewModel: DiaryViewModel
+    private lateinit var diaryAdapter: DiaryAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val binding = ActivityDataBinding.inflate(layoutInflater)
+        binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        /*
-        val chartEntry = arrayListOf<Entry>()
+        // ViewModelProvider로 ViewModel 초기화
+        viewModel = ViewModelProvider(this)[DiaryViewModel::class.java]
 
-        list.forEachIndexed { index, listItem ->
-            chartEntry.add(Entry(x=index.toFloat(), y=/*차트에 보여줄 데이터*/.toFloat()))
+        // RecyclerView 설정
+        setupRecyclerView()
+
+        // 데이터 가져오기
+        viewModel.getAllEntries().observe(this) { entries ->
+            if (entries == null || entries.isEmpty()) {
+                Log.d("DataActivity", "No entries found")
+                // 빈 상태 UI 업데이트
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyStateText.visibility = View.VISIBLE
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.emptyStateText.visibility = View.GONE
+                diaryAdapter.updateEntries(entries)
+            }
         }
-
-        val chartDataSet = LineDataSet(chartData, "")
-
-        binding.yourChartName.apply {
-            data = LineData(chartDataSet)
-            invalidate()
-        }
-        */
-
-
-        }
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return super.onSupportNavigateUp()
     }
+
+    private fun setupRecyclerView() {
+        diaryAdapter = DiaryAdapter(emptyList())
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@DataActivity)
+            adapter = diaryAdapter
+        }
     }
+}

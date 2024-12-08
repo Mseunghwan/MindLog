@@ -51,12 +51,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/databtn"
+        android:id="@+id/savebtn"
         android:layout_width="178dp"
         android:layout_height="58dp"
         android:layout_marginStart="116dp"
         android:layout_marginBottom="144dp"
-        android:text="data"
+        android:text="작성 끝"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editMessage"
@@ -73,17 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/savebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMessage"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/baseline_save_24" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -2,82 +2,61 @@ package com.example.letscouncil
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import com.example.letscouncil.databinding.ActivityWriteBinding
+import com.example.letscouncil.viewmodel.DiaryViewModel
+import java.util.Calendar
 
 class WriteActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityWriteBinding
+    private lateinit var viewModel: DiaryViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val binding = ActivityWriteBinding.inflate(layoutInflater)
-        setSupportActionBar(binding.toolbar1)
+        binding = ActivityWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ViewModel 초기화
+        try {
+            viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            )[DiaryViewModel::class.java]
+            Log.d("WriteActivity", "ViewModel initialized successfully")
+        } catch (e: Exception) {
+            Log.e("WriteActivity", "ViewModel initialization failed: ${e.message}", e)
+        }
+
+        setSupportActionBar(binding.toolbar1)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // 누른 날짜를 제목으로 설정함. mainActivity에서 날짜를 이름으로 받음
-        binding.date.text = intent.getStringExtra("Title Date")
+        // 버튼 설정
+        binding.savebtn.setOnClickListener { saveToDatabase() }
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼의 기본 ID
+                onBackPressedDispatcher.onBackPressed() // 뒤로가기 동작 호출
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
-        // 저장버튼
-        binding.savebtn.setOnClickListener {
-            //val returnIntent = Intent()
-            //returnIntent.putExtra("Data", binding.editMessage.text.toString())
-            //setResult(RESULT_OK, returnIntent)
-
-            saveData()
-            Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show()
+    private fun saveToDatabase() {
+        val content = binding.editMessage.text.toString()
+        if (content.isNotBlank() && content != "글을 입력해주세요") {
+            viewModel.saveDiary(content)
+            Toast.makeText(this, "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             finish()
+        } else {
+            Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
-
-
-        // 글자 입력에 따른 액션
-        binding.editMessage.addTextChangedListener() {
-
-
-        }
-
-        val intent = Intent(this, AnalysisActivity::class.java)
-        binding.databtn.setOnClickListener {
-            startActivity(intent)
-        }
-
-    }
-
-
-    // 뒤로버튼 누를 시 저장하시겠습니까? 팝업창 띄울 것
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return super.onSupportNavigateUp()
-    }
-
-
-    private fun saveData() {
-
-        val binding = ActivityWriteBinding.inflate(layoutInflater)
-        setSupportActionBar(binding.toolbar1)
-        setContentView(binding.root)
-
-        val pref = getSharedPreferences("pref", 0)
-        val edit = pref.edit() // 수정 모드
-        // 1번째 인자는 키, 2번째 인자는 실제 담아둘 값
-        edit.putString("Data", binding.editMessage.text.toString())
-        edit.apply() // 저장완료
-
-    }
-
-    fun loadData() {
-
-        val binding = ActivityWriteBinding.inflate(layoutInflater)
-        setSupportActionBar(binding.toolbar1)
-        setContentView(binding.root)
-
-        val pref = getSharedPreferences("pref", 0)
-        // 1번째 인자는 키, 2번째 인자는 데이터가 존재하지 않을경우의 값
-        binding.editMessage.setText(pref.getString("Data", ""))
-
     }
 }
