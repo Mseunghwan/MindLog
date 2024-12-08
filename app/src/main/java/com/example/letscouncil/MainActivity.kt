@@ -73,4 +73,6 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_diary -> startActivity(Intent(this, DataActivity::class.java))
         }
     }
+
+
 }

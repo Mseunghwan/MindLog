@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 기존 색상 -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -8,19 +9,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Updated Colors -->
+    <!-- 브랜드 색상 -->
+    <color name="brand_primary">#7E57C2</color>
+    <color name="brand_secondary">#B39DDB</color>
+    <color name="brand_background">#F6F4FF</color>
+
+    <!-- 배경 색상 -->
     <color name="background_start">#ECF2FF</color>
     <color name="background_middle">#FBFCFF</color>
     <color name="background_end">#F9F1FF</color>
 
+    <!-- 웰컴 카드 그라데이션 -->
     <color name="welcome_gradient_start">#6C72CB</color>
     <color name="welcome_gradient_end">#5B5FB6</color>
 
+    <!-- 카드 색상 -->
     <color name="card_write_start">#FF7B9E</color>
     <color name="card_counsel_start">#7C9BFF</color>
     <color name="card_data_start">#B68FFF</color>
     <color name="card_analysis_start">#FF9393</color>
 
+    <!-- 텍스트 색상 -->
     <color name="text_primary">#2C2C2C</color>
     <color name="text_secondary">#757575</color>
 </resources>
