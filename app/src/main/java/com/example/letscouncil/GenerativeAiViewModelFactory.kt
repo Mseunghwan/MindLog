@@ -16,6 +16,8 @@ val GenerativeViewModelFactory = object : ViewModelProvider.Factory {
     ): T {
         val config = generationConfig {
             temperature = 0.7f
+            maxOutputTokens = 500
+            topP = 0.9f
         }
 
         return with(viewModelClass) {
