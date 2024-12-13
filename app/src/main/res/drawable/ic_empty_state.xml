@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- 메인 노트 -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M30,20h60c5.52,0 10,4.48 10,10v60c0,5.52 -4.48,10 -10,10h-60c-5.52,0 -10,-4.48 -10,-10v-60c0,-5.52 4.48,-10 10,-10z" />
+
+    <!-- 노트 라인들 -->
+    <path
+        android:fillColor="#DDDDDD"
+        android:pathData="M40,45h40v2h-40z" />
+
+    <path
+        android:fillColor="#DDDDDD"
+        android:pathData="M40,55h40v2h-40z" />
+
+    <path
+        android:fillColor="#DDDDDD"
+        android:pathData="M40,65h30v2h-30z" />
+
+    <!-- 연필 -->
+    <path
+        android:fillColor="#673AB7"
+        android:pathData="M85,25l10,10l-8,8l-10,-10z" />
+
+    <path
+        android:fillColor="#9575CD"
+        android:pathData="M77,33l10,10l-20,20l-10,-10z" />
+
+    <!-- 연필 지우개 -->
+    <path
+        android:fillColor="#B39DDB"
+        android:pathData="M93,23l4,4l-6,6l-4,-4z" />
+</vector>
