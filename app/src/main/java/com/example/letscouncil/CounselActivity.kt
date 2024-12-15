@@ -2,6 +2,7 @@ package com.example.letscouncil
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -95,8 +96,24 @@ class CounselActivity : AppCompatActivity() {
         val WriteData = intent.getStringExtra("content")
         //CounselViewModel.setWriteData(WriteData)
 
+        val generativeModel = GenerativeModel(
+            modelName = "gemini-1.5-flash",
+            apiKey = BuildConfig.apiKey
+        )
 
-        binding.tvAnalysisSummary.text = WriteData
+        lifecycleScope.launch {
+            val response = generativeModel.generateContent(WriteData.toString())
+
+            // 로딩바 만들기(미완)
+            binding.progressbarAnalysis.visibility = View.VISIBLE
+            binding.progressbarAnalysis.visibility = View.GONE
+
+
+            // 요약해서 전송하고 싶은데.........................
+            // ㅠㅠㅠㅠ
+            binding.tvAnalysisSummary.text = response.text
+
+        }
 
         // ProgressBar 설정
         findViewById<ProgressBar>(R.id.progress_positive)?.progress = 75

@@ -57,8 +57,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="긍정적인 감정이 75%로 나타났습니다."
+                        android:text=" "
                         android:textSize="16sp"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressbar_analysis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:progress="0"
+                        android:progressTint="@color/purple_500"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
