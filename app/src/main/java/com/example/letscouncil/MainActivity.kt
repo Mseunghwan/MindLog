@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 예제 데이터 추가 (테스트용)
-        addSampleDiaryData()
+        // addSampleDiaryData()
     }
 
     private fun setupClickEffects() {

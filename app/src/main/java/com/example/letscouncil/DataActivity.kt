@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.letscouncil.adapter.DiaryAdapter
+import com.example.letscouncil.data.database.DiaryDatabase
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.databinding.ActivityDataBinding
+import com.example.letscouncil.databinding.ItemDiaryBinding
 import com.example.letscouncil.viewmodel.DiaryViewModel
 
 class DataActivity : AppCompatActivity() {

@@ -20,4 +20,5 @@ interface DiaryDao {
 
     @Delete
     suspend fun delete(entry: DiaryEntry)
+
 }

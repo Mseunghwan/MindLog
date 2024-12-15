@@ -6,15 +6,20 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="8dp"
+    android:animateLayoutChanges="true"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     app:strokeWidth="0dp">
+    
 
     <LinearLayout
+        android:id="@+id/textdata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:clickable="true"
         android:padding="20dp">
+
 
         <!-- 날짜 -->
         <TextView
@@ -44,6 +49,14 @@
             android:layout_height="4dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/diary_item_indicator" />
+
+        <Button
+            android:id="@+id/button"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분석하러 가기"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

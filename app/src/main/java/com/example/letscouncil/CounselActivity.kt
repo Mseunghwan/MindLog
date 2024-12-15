@@ -3,8 +3,17 @@ package com.example.letscouncil
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.example.letscouncil.databinding.ActivityCounselBinding
+import com.example.letscouncil.feature.chat.ChatViewModel
+import com.example.letscouncil.viewmodel.DiaryViewModel
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.LineData
@@ -12,14 +21,19 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.google.ai.client.generativeai.GenerativeModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
+
 
 
 class CounselActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCounselBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCounselBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,7 +44,6 @@ class CounselActivity : AppCompatActivity() {
         displayAnalysisData()
 
         val pieChart = findViewById<PieChart>(R.id.pieChart)
-
         // 데이터 입력
         val entries = listOf(
             PieEntry(10f, "부정적 감정"),
@@ -78,7 +91,12 @@ class CounselActivity : AppCompatActivity() {
     private fun displayAnalysisData() {
         // 예시 데이터를 표시합니다
         // 실제로는 이전 화면에서 전달받은 데이터나 API 결과를 사용해야 합니다
-        binding.tvAnalysisSummary.text = "긍정적인 감정이 75%로 나타났습니다."
+
+        val WriteData = intent.getStringExtra("content")
+        //CounselViewModel.setWriteData(WriteData)
+
+
+        binding.tvAnalysisSummary.text = WriteData
 
         // ProgressBar 설정
         findViewById<ProgressBar>(R.id.progress_positive)?.progress = 75
