@@ -108,69 +108,73 @@ class CounselActivity : AppCompatActivity() {
         var totalPositive = 0f
         var totalNeutral = 0f
         var totalNegative = 0f
-        val emotionKeywords = mutableListOf<String>()
-        val recommendations = mutableListOf<String>()
 
-        entries.forEach { entry ->
+        // 모든 일기 내용을 하나의 문자열로 결합
+        val allContent = entries.joinToString("\n") { it.content }
+
+        // 각 일기별 감정 수치 분석
+        val emotionScores = entries.map { entry ->
             val response = generativeModel.generateContent(
                 """
-            일기 내용의 감정을 수치화해서 분석해주세요.
-            "${entry.content}"
+        일기 내용의 감정을 수치화해서 분석해주세요.
+        "${entry.content}"
 
-            아래 형식으로 정확한 수치를 제시해주세요. 합이 100이 되어야 합니다:
-            긍정적 감정: 숫자만%
-            중립적 감정: 숫자만%
-            부정적 감정: 숫자만%
-            """.trimIndent()
+        아래 형식으로 정확한 수치를 제시해주세요. 합이 100이 되어야 합니다:
+        긍정적 감정: 숫자만%
+        중립적 감정: 숫자만%
+        부정적 감정: 숫자만%
+        """.trimIndent()
             )
 
-            Log.d("CounselActivity", "AI Response: ${response.text}")  // 응답 확인용 로그
-
-            val keywordResponse = generativeModel.generateContent(
-                """
-            이 일기에서 느껴지는 주요 감정 3개를 추출해주세요:
-            "${entry.content}"
-            """.trimIndent()
-            )
-            emotionKeywords.add(keywordResponse.text ?: "")
-
-            val percentages = extractPercentages(response.text ?: "")
-
-            // 값 검증용 로그
-            Log.d("CounselActivity", "Extracted percentages: positive=${percentages.first}, neutral=${percentages.second}, negative=${percentages.third}")
-
-            totalPositive += percentages.first
-            totalNeutral += percentages.second
-            totalNegative += percentages.third
+            extractPercentages(response.text ?: "")
         }
 
-        // 평균값 계산 및 검증용 로그
+        // 전체 일기에 대한 감정 키워드 한 번만 분석
+        val keywordResponse = generativeModel.generateContent(
+            """
+    아래의 모든 일기들에서 느껴지는 주요 감정 5개만 추출해주세요. 
+    각 감정은 한 단어로만 표현해주세요:
+    
+    "${allContent}"
+    """.trimIndent()
+        )
+
+        val emotionKeywords = keywordResponse.text ?: ""
+
+        // 감정 점수 합산
+        emotionScores.forEach { (positive, neutral, negative) ->
+            totalPositive += positive
+            totalNeutral += neutral
+            totalNegative += negative
+        }
+
+        // 평균 계산
         val avgPositive = totalPositive / entries.size
         val avgNeutral = totalNeutral / entries.size
         val avgNegative = totalNegative / entries.size
 
-        Log.d("CounselActivity", "Averages before normalization: positive=$avgPositive, neutral=$avgNeutral, negative=$avgNegative")
-
-        // 합이 100이 되도록 정규화
+        // 정규화
         val sum = avgPositive + avgNeutral + avgNegative
         val normalizedPositive = if (sum > 0) (avgPositive / sum) * 100 else 0f
         val normalizedNeutral = if (sum > 0) (avgNeutral / sum) * 100 else 0f
         val normalizedNegative = if (sum > 0) (avgNegative / sum) * 100 else 0f
 
-        // 정규화 후 값 검증용 로그
-        Log.d("CounselActivity", "Final normalized values: positive=$normalizedPositive, neutral=$normalizedNeutral, negative=$normalizedNegative")
-
+        // 추천사항 요청 - 감정 키워드를 명시적으로 포함
         val recommendationResponse = generativeModel.generateContent(
-            "지금의 감정 상태를 고려하여 도움이 될 만한 활동 3가지를 추천해주세요."
+            """
+        다음과 같은 감정들이 관찰되었습니다: $emotionKeywords
+        
+        이러한 감정 상태를 고려했을 때, 현재 상황에서 도움이 될 만한 구체적인 활동 3가지를 추천해주세요.
+        각 활동은 현재의 감정 상태를 개선하거나 보완하는데 도움이 되어야 합니다.
+        """.trimIndent()
         )
-        recommendations.add(recommendationResponse.text ?: "")
 
         return AggregatedAnalysis(
             positivePercent = normalizedPositive,
             neutralPercent = normalizedNeutral,
             negativePercent = normalizedNegative,
-            emotionKeywords = emotionKeywords,
-            recommendations = recommendations
+            emotionKeywords = listOf(emotionKeywords),
+            recommendations = listOf(recommendationResponse.text ?: "")
         )
     }
 
@@ -244,7 +248,7 @@ class CounselActivity : AppCompatActivity() {
             data = PieData(dataSet)
             description.isEnabled = false
             isRotationEnabled = true
-            centerText = "일주일 감정 분포"
+            centerText = "감정 분포"
             setCenterTextSize(18f)
             animateY(1000)
             setUsePercentValues(true)
