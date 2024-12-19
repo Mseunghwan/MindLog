@@ -112,83 +112,56 @@ class CounselActivity : AppCompatActivity() {
         val recommendations = mutableListOf<String>()
 
         entries.forEach { entry ->
-            // 감정 분석 프롬프트 개선
             val response = generativeModel.generateContent(
                 """
-            다음 일기 내용을 정확하게 감정 분석해주세요:
+            일기 내용의 감정을 수치화해서 분석해주세요.
             "${entry.content}"
-            
-            분석 방법:
-            1. 일기에서 언급된 감정 단어들의 실제 출현 빈도를 세어주세요
-            2. 각 감정 단어의 강도와 문맥을 고려해주세요
-            3. 감정이 직접적으로 언급되지 않은 경우, 문장의 어조와 내용을 통해 파악해주세요
-            
-            감정 분류:
-            - 긍정적 감정: 행복, 기쁨, 만족, 감사, 즐거움, 설렘, 기대감, 편안함 등
-            - 중립적 감정: 평온, 담담함, 보통의 감정, 일상적인 상태
-            - 부정적 감정: 슬픔, 분노, 불안, 우울, 걱정, 스트레스, 당황 등
-            
-            분석 시 주의사항:
-            1. 감정 단어의 실제 출현 빈도를 가장 중요한 기준으로 삼으세요
-            2. 같은 감정이 반복적으로 언급된 경우, 그만큼 높은 비중을 차지해야 합니다
-            3. 긍정적 감정이 n번, 부정적 감정이 m번 언급되었다면, 그 비율이 결과에 확실히 반영되어야 합니다
-            
-            다음 형식으로 응답해주세요:
-            긍정적 감정: XX%
-            중립적 감정: XX%
-            부정적 감정: XX%
-            (비율의 총합은 100이 되어야 합니다)
-            """
+
+            아래 형식으로 정확한 수치를 제시해주세요. 합이 100이 되어야 합니다:
+            긍정적 감정: 숫자만%
+            중립적 감정: 숫자만%
+            부정적 감정: 숫자만%
+            """.trimIndent()
             )
 
-            // 감정 키워드 추출도 더 정확하게
+            Log.d("CounselActivity", "AI Response: ${response.text}")  // 응답 확인용 로그
+
             val keywordResponse = generativeModel.generateContent(
                 """
-            다음 일기 내용에서 가장 자주 언급되거나 강하게 표현된 감정을 순서대로 3개의 키워드로 요약해주세요:
+            이 일기에서 느껴지는 주요 감정 3개를 추출해주세요:
             "${entry.content}"
-            
-            주의사항:
-            1. 실제 텍스트에서 가장 많이 언급된 감정을 우선적으로 선택하세요
-            2. 감정 단어의 출현 빈도를 반영하세요
-            3. 같은 감정이 여러 번 언급되었다면 그 감정을 우선 선택하세요
-            
-            응답 형식: "가장 많이 언급된 감정, 두 번째로 많이 언급된 감정, 세 번째로 많이 언급된 감정"
-            """
+            """.trimIndent()
             )
             emotionKeywords.add(keywordResponse.text ?: "")
 
             val percentages = extractPercentages(response.text ?: "")
+
+            // 값 검증용 로그
+            Log.d("CounselActivity", "Extracted percentages: positive=${percentages.first}, neutral=${percentages.second}, negative=${percentages.third}")
+
             totalPositive += percentages.first
             totalNeutral += percentages.second
             totalNegative += percentages.third
         }
 
-        // 평균 계산과 정규화는 동일하게 유지
+        // 평균값 계산 및 검증용 로그
         val avgPositive = totalPositive / entries.size
         val avgNeutral = totalNeutral / entries.size
         val avgNegative = totalNegative / entries.size
 
+        Log.d("CounselActivity", "Averages before normalization: positive=$avgPositive, neutral=$avgNeutral, negative=$avgNegative")
+
+        // 합이 100이 되도록 정규화
         val sum = avgPositive + avgNeutral + avgNegative
-        val normalizedPositive = if (sum > 0) (avgPositive / sum) * 100 else 80f  // 기본값 변경
-        val normalizedNeutral = if (sum > 0) (avgNeutral / sum) * 100 else 15f   // 기본값 변경
-        val normalizedNegative = if (sum > 0) (avgNegative / sum) * 100 else 5f  // 기본값 변경
+        val normalizedPositive = if (sum > 0) (avgPositive / sum) * 100 else 0f
+        val normalizedNeutral = if (sum > 0) (avgNeutral / sum) * 100 else 0f
+        val normalizedNegative = if (sum > 0) (avgNegative / sum) * 100 else 0f
 
-        // 추천 활동도 감정 빈도를 반영하도록 수정
+        // 정규화 후 값 검증용 로그
+        Log.d("CounselActivity", "Final normalized values: positive=$normalizedPositive, neutral=$normalizedNeutral, negative=$normalizedNegative")
+
         val recommendationResponse = generativeModel.generateContent(
-            """
-        감정 분석 결과, 다음과 같은 감정 상태를 보이고 있습니다:
-        긍정: ${normalizedPositive}%
-        중립: ${normalizedNeutral}%
-        부정: ${normalizedNegative}%
-
-        현재 우세한 감정을 고려하여:
-        1. 현재의 감정이 긍정적이라면 더욱 강화하고 지속시킬 수 있는 활동
-        2. 이러한 긍정적 상태를 다른 영역으로도 확장할 수 있는 활동
-        3. 부정적 감정을 자연스럽게 해소할 수 있는 활동
-
-        위 관점에서 구체적이고 실천 가능한 활동 3가지를 추천해주세요.
-        각 활동은 현재의 감정 상태를 고려하여 제안해주세요.
-        """
+            "지금의 감정 상태를 고려하여 도움이 될 만한 활동 3가지를 추천해주세요."
         )
         recommendations.add(recommendationResponse.text ?: "")
 
@@ -200,6 +173,27 @@ class CounselActivity : AppCompatActivity() {
             recommendations = recommendations
         )
     }
+
+    // extractPercentages 함수도 수정
+    private fun extractPercentages(text: String): Triple<Float, Float, Float> {
+        try {
+            val numbers = text.split("%")
+                .mapNotNull { str ->
+                    str.filter { it.isDigit() || it == '.' }
+                        .toFloatOrNull()
+                }
+            Log.d("CounselActivity", "Extracted numbers from text: $numbers")
+
+            return Triple(
+                numbers.getOrNull(0) ?: 0f,
+                numbers.getOrNull(1) ?: 0f,
+                numbers.getOrNull(2) ?: 0f
+            )
+        } catch (e: Exception) {
+            Log.e("CounselActivity", "Error parsing percentages", e)
+            return Triple(0f, 0f, 0f)
+        }
+    }
     private fun createAnalysisResult(analysis: AggregatedAnalysis): AnalysisResult {
         return AnalysisResult(
             timestamp = System.currentTimeMillis(),
@@ -209,16 +203,6 @@ class CounselActivity : AppCompatActivity() {
             emotionKeywords = JSONArray(analysis.emotionKeywords).toString(),
             recommendations = JSONArray(analysis.recommendations).toString(),
             lastAnalyzedDiaryDate = System.currentTimeMillis()
-        )
-    }
-
-    private fun extractPercentages(text: String): Triple<Float, Float, Float> {
-        val numbers = text.split("%")
-            .mapNotNull { it.findLast { char -> char.isDigit() }?.toString()?.toFloatOrNull() }
-        return Triple(
-            numbers.getOrNull(0) ?: 0f,
-            numbers.getOrNull(1) ?: 0f,
-            numbers.getOrNull(2) ?: 0f
         )
     }
 
