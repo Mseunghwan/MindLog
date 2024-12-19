@@ -36,6 +36,8 @@
         <activity
             android:name=".AIMenuActivity"
             android:exported="false" />
+        <activity android:name=".UserSetupActivity" />
+
     </application>
 
 </manifest>

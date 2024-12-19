@@ -23,6 +23,9 @@ class DataActivity : AppCompatActivity() {
         binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Toolbar 설정
+        setupToolbar()
+
         // ViewModelProvider로 ViewModel 초기화
         viewModel = ViewModelProvider(this)[DiaryViewModel::class.java]
 
@@ -41,6 +44,18 @@ class DataActivity : AppCompatActivity() {
                 binding.emptyStateText.visibility = View.GONE
                 diaryAdapter.updateEntries(entries)
             }
+        }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar) // XML에 정의된 Toolbar를 앱바로 설정
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+            setDisplayShowHomeEnabled(true)
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

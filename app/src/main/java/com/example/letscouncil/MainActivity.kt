@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.letscouncil.adapter.DiaryAdapter
+import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.database.DiaryDatabase
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.databinding.ActivityMainBinding
@@ -23,6 +24,18 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val userPreferences = UserPreferences(this)
+
+        // 사용자 설정 여부 확인
+        val user = userPreferences.getUser()
+        if (user == null) {
+            // 사용자 정보가 없으면 UserSetupActivity로 이동
+            startActivity(Intent(this, UserSetupActivity::class.java))
+            finish()
+            return
+        }
+        binding.welcomeText.text = "${user.name}님! 좋은 하루에요."
 
         // 상태바 설정
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

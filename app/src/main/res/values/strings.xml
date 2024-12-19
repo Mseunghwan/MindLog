@@ -23,4 +23,9 @@
     <!-- Chat sample strings -->
     <string name="chat_label">Message</string>
     <string name="action_send">Send</string>
+
+    <string name="enter_name">Enter your name</string>
+    <string name="enter_birth_date">Enter your birth date</string>
+    <string name="enter_occupation">Enter your occupation</string>
+    <string name="save">Save</string>
 </resources>

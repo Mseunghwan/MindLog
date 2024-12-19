@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.entity.AnalysisResult
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.data.model.AggregatedAnalysis
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.first
 class CounselActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCounselBinding
     private lateinit var viewModel: DiaryViewModel
+    private lateinit var userPreferences: UserPreferences
     private val generativeModel = GenerativeModel(
         modelName = "gemini-1.5-flash",
         apiKey = BuildConfig.apiKey
@@ -40,13 +42,33 @@ class CounselActivity : AppCompatActivity() {
         binding = ActivityCounselBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // UserPreferences 초기화
+        userPreferences = UserPreferences(this)
+
+        // 사용자 정보 가져오기
+        val user = userPreferences.getUser()
+
+        // 사용자 이름, 연령, 직업 기반 메시지 생성
+        val userName = user?.name ?: "사용자"
+        val userAge = user?.birthYear?.let { calculateAge(it) } ?: "알 수 없음"
+        val userOccupation = user?.occupation ?: "알 수 없음"
+
         viewModel = ViewModelProvider(this)[DiaryViewModel::class.java]
 
         setupToolbar()
         checkAndLoadAnalysis()
     }
 
+    private fun calculateAge(birthYear: Int): Int {
+        val currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)
+        return currentYear - birthYear
+    }
+
     private fun checkAndLoadAnalysis() {
+        val user = userPreferences.getUser()
+        val userName = user?.name ?: ""
+        val userAge = user?.birthYear?.let { calculateAge(it) }
+        val userOccupation = user?.occupation ?: "알 수 없음"
         lifecycleScope.launch {
             try {
                 // 먼저 재분석 필요 여부 확인
@@ -62,7 +84,8 @@ class CounselActivity : AppCompatActivity() {
                             lifecycleScope.launch {
                                 try {
                                     // 분석 수행
-                                    val analysis = analyzeEntries(entries)
+                                    val analysis = analyzeEntries(entries, userName, userAge, userOccupation)
+
                                     val analysisResult = createAnalysisResult(analysis)
                                     viewModel.saveAnalysisResult(analysisResult)
 
@@ -104,7 +127,7 @@ class CounselActivity : AppCompatActivity() {
         binding.loadingLayout.visibility = if (show) View.VISIBLE else View.GONE
         binding.nestedScrollView.visibility = if (show) View.GONE else View.VISIBLE
     }
-    private suspend fun analyzeEntries(entries: List<DiaryEntry>): AggregatedAnalysis {
+    private suspend fun analyzeEntries(entries: List<DiaryEntry>, userName: String, userAge: Int?, userOccupation: String?): AggregatedAnalysis {
         var totalPositive = 0f
         var totalNeutral = 0f
         var totalNegative = 0f
@@ -162,11 +185,17 @@ class CounselActivity : AppCompatActivity() {
         // 추천사항 요청 - 감정 키워드를 명시적으로 포함
         val recommendationResponse = generativeModel.generateContent(
             """
+        사용자 정보:
+        이름: ${userName.ifEmpty { "사용자" }}
+        나이: ${userAge ?: "알 수 없음"}
+        직업: ${userOccupation ?: "알 수 없음"}
+                
         다음과 같은 감정들이 관찰되었습니다: $emotionKeywords
         
-        이러한 감정 상태를 고려했을 때, 현재 상황에서 도움이 될 만한 구체적인 활동 3가지를 추천해주세요.
+        이러한 감정 상태를 고려했을 때, 사용자의 나이, 직업을 고려해 현재 상황에서 도움이 될 만한 구체적인 활동 3가지를 추천해주세요.
         각 활동은 현재의 감정 상태를 개선하거나 보완하는데 도움이 되어야 합니다.
         """.trimIndent()
+
         )
 
         return AggregatedAnalysis(
