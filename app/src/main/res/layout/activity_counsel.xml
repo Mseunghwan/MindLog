@@ -193,8 +193,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="추천 활동"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/purple_700"/>
 
                     <TextView
                         android:id="@+id/RA"

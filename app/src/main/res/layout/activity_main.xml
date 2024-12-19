@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="마음씨"
+                    android:text="HeartSeed"
                     android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold"
@@ -62,10 +62,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="감정을 기록하고\n하루를 돌아보세요"
+                            android:text="하루를 기록하며\n몰랐던 나를 진단하기"
                             android:textColor="@color/white"
                             android:alpha="0.8"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -96,7 +96,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Lv.5 탐험가"
+                                android:text="Lv.5 자기개발왕"
+                                android:textSize="13sp"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"/>
 
