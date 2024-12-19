@@ -189,8 +189,7 @@
                                 android:textColor="@color/white"
                                 android:alpha="0.9"
                                 android:textSize="14sp"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4dp"/>
+                                android:gravity="center"/>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -238,8 +237,7 @@
                                 android:textColor="@color/white"
                                 android:alpha="0.9"
                                 android:textSize="14sp"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4dp"/>
+                                android:gravity="center"/>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
@@ -290,12 +288,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="지난 날들을 생각해요"
+                                android:text="지난 날들을 보관해뒀어요"
                                 android:textColor="#8B4513"
                                 android:alpha="0.9"
                                 android:textSize="14sp"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4dp"/>
+                                android:gravity="center"/>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -342,8 +339,7 @@
                                 android:textColor="#2E8B57"
                                 android:alpha="0.9"
                                 android:textSize="14sp"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4dp"/>
+                                android:gravity="center"/>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>

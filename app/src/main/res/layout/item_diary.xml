@@ -50,14 +50,6 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/diary_item_indicator" />
 
-        <Button
-            android:id="@+id/button"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="분석하러 가기"
-            android:layout_gravity="center"/>
-
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

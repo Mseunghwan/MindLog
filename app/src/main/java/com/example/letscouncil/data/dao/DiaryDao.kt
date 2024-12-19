@@ -1,6 +1,8 @@
 package com.example.letscouncil.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.letscouncil.data.entity.AnalysisResult
 import com.example.letscouncil.data.entity.DiaryEntry
 import kotlinx.coroutines.flow.Flow
 
@@ -20,5 +22,18 @@ interface DiaryDao {
 
     @Delete
     suspend fun delete(entry: DiaryEntry)
+
+
+    @Query("SELECT * FROM diary_entries ORDER BY date DESC LIMIT :limit")
+    fun getRecentEntries(limit: Int): LiveData<List<DiaryEntry>>  // Flow를 LiveData로 변경
+
+    @Query("SELECT * FROM analysis_results ORDER BY timestamp DESC LIMIT 1")
+    fun getLatestAnalysis(): Flow<AnalysisResult?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAnalysis(analysis: AnalysisResult)
+
+    @Query("SELECT MAX(date) FROM diary_entries")
+    fun getLatestDiaryDate(): Flow<Long?>
 
 }

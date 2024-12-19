@@ -6,8 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.letscouncil.data.dao.DiaryDao
 import com.example.letscouncil.data.entity.DiaryEntry
+import com.example.letscouncil.data.entity.AnalysisResult
 
-@Database(entities = [DiaryEntry::class], version = 1, exportSchema = false)
+@Database(
+    entities = [DiaryEntry::class, AnalysisResult::class],  // AnalysisResult 엔티티 추가
+    version = 2  // 버전 1에서 2로 증가
+)
 abstract class DiaryDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao
 
@@ -17,12 +21,15 @@ abstract class DiaryDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): DiaryDatabase {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
+                val instance = Room.databaseBuilder(
                     context.applicationContext,
                     DiaryDatabase::class.java,
                     "diary_database"
-                ).fallbackToDestructiveMigration()
-                    .build().also { INSTANCE = it }
+                )
+                    .fallbackToDestructiveMigration()  // 데이터베이스 버전 변경 시 기존 데이터 삭제하고 새로 생성
+                    .build()
+                INSTANCE = instance
+                instance
             }
         }
     }

@@ -22,23 +22,6 @@ class DiaryAdapter(private var diaryEntries: List<DiaryEntry>) :
             binding.dateText.text = formatDate(entry.date)
             binding.contentText.text = entry.content
             binding.textdata.setOnClickListener{
-                // -1 은 계속 재실행 돼서 100줄로 함
-                // text 펼치기
-                if(binding.contentText.maxLines == 8){
-                    binding.contentText.maxLines = 100
-                    binding.button.visibility = View.VISIBLE
-                }
-                else {
-                    binding.contentText.maxLines = 8
-                    binding.button.visibility = View.INVISIBLE
-                }
-            }
-
-            // 분석할 데이터 내보내기 및 분석화면으로 전환
-            binding.button.setOnClickListener{
-                val intent = Intent(binding.contentText.context, CounselActivity::class.java)
-                intent.putExtra("content", binding.contentText.text)
-                binding.root.context.startActivity(intent)
             }
         }
 
