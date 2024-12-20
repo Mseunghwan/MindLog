@@ -8,7 +8,7 @@ import com.google.ai.client.generativeai.type.generationConfig
 import com.example.letscouncil.feature.chat.ChatViewModel
 
 val GenerativeViewModelFactory = object : ViewModelProvider.Factory {
-    private val apiKey = "AIzaSyB3t-QgoNfPSzmcIw1I7B7SJ2rbjneinq0"  // 실제 API 키로 교체하세요
+    private val apiKey = "APIKey"  // 실제 API 키로 교체하세요
 
     override fun <T : ViewModel> create(
         viewModelClass: Class<T>,
