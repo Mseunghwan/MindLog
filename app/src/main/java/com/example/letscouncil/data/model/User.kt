@@ -5,5 +5,6 @@ data class User(
     val birthYear: Int,
     val birthMonth: Int,
     val birthDay: Int,
-    val occupation: String
+    val occupation: String,
+    var score: Int,
 )

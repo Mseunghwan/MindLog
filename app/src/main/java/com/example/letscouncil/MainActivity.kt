@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var diaryAdapter: DiaryAdapter
     private val diaryDatabase by lazy { DiaryDatabase.getDatabase(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +54,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DataActivity::class.java))
         }
 
+        // 유저레벨 프로그레스바 설정
+        binding.levelProgressBar.progress=(user.score%100)
+
         // 예제 데이터 추가 (테스트용)
         // addSampleDiaryData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val userPreferences = UserPreferences(this)
+        val user = userPreferences.getUser()
+
+        if (user != null) {
+            binding.levelProgressBar.progress = (user.score % 100)
+        } else {
+            // 만약 유저 정보가 없을 경우
+            binding.welcomeText.text = "유저 정보를 불러오지 못했습니다."
+        }
     }
 
     private fun setupClickEffects() {

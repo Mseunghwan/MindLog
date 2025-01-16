@@ -107,7 +107,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="4dp"
                                 android:layout_marginTop="4dp"
-                                android:progress="75"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:progressTint="@color/white"
                                 android:progressBackgroundTint="#4DFFFFFF"/>

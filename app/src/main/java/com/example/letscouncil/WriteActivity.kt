@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.letscouncil.data.UserPreferences
+import com.example.letscouncil.data.model.User
 import com.example.letscouncil.databinding.ActivityWriteBinding
 import com.example.letscouncil.viewmodel.DiaryViewModel
 import java.util.Calendar
@@ -50,10 +52,18 @@ class WriteActivity : AppCompatActivity() {
     }
 
     private fun saveToDatabase() {
+        val userPreferences = UserPreferences(this)
+        val user = userPreferences.getUser()
         val content = binding.editMessage.text.toString()
+
         if (content.isNotBlank() && content != "글을 입력해주세요") {
             viewModel.saveDiary(content)
             Toast.makeText(this, "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            if (user != null) {
+                user.score += 20
+                userPreferences.saveUser(user)
+            }
+            Log.e("user", user.toString())
             finish()
         } else {
             Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()

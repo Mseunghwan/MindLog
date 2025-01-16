@@ -15,6 +15,7 @@ class UserPreferences(context: Context) {
             putInt("birthMonth", user.birthMonth)
             putInt("birthDay", user.birthDay)
             putString("occupation", user.occupation)
+            putInt("score", user.score)
             apply()
         }
     }
@@ -25,9 +26,10 @@ class UserPreferences(context: Context) {
         val birthMonth = sharedPreferences.getInt("birthMonth", -1)
         val birthDay = sharedPreferences.getInt("birthDay", -1)
         val occupation = sharedPreferences.getString("occupation", null)
+        var score = sharedPreferences.getInt("score", 0)
 
         return if (name != null && birthYear != -1 && birthMonth != -1 && birthDay != -1 && occupation != null) {
-            User(name, birthYear, birthMonth, birthDay, occupation)
+            User(name, birthYear, birthMonth, birthDay, occupation, score)
         } else {
             null
         }

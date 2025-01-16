@@ -54,9 +54,10 @@ class UserSetupActivity : AppCompatActivity() {
             val birthMonth = months[binding.spinnerMonth.selectedItemPosition]
             val birthDay = days[binding.spinnerDay.selectedItemPosition]
             val occupation = occupations[binding.spinnerOccupation.selectedItemPosition]
+            val score = 0
 
             if (name.isNotBlank()) {
-                val user = User(name, birthYear, birthMonth, birthDay, occupation)
+                val user = User(name, birthYear, birthMonth, birthDay, occupation, score)
                 userPreferences.saveUser(user)
 
                 // MainActivity로 이동
