@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 배경 그라데이션 -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:endColor="@color/background_end"
+                android:startColor="@color/background_start"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- 물결 패턴 -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerColor="@color/background_middle"
+                android:endColor="@android:color/transparent"
+                android:startColor="@android:color/transparent"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>
