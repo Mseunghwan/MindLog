@@ -95,9 +95,10 @@
                             android:layout_marginStart="12dp">
 
                             <TextView
+                                android:id="@+id/progressText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Lv.5 자기개발왕"
+                                android:text="Lv. 1 시작"
                                 android:textSize="13sp"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"/>

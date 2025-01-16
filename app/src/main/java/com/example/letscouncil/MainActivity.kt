@@ -17,6 +17,28 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val diaryDatabase by lazy { DiaryDatabase.getDatabase(this) }
+    private val levelTitles = listOf(
+        "새싹 일기장",         // 1
+        "초보 기록가",         // 2
+        "글씨 연습생",         // 3
+        "일기 초심자",         // 4
+        "꾸준한 필사자",       // 5
+        "하루의 설계자",       // 6
+        "소소한 기록가",       // 7
+        "성실한 이야기꾼",     // 8
+        "일기 마스터 초보",    // 9
+        "꾸준함의 씨앗",       // 10
+        "책임감의 모범생",     // 11
+        "작은 성공의 설계자",  // 12
+        "성실함의 챔피언",     // 13
+        "기록의 탐험가",       // 14
+        "일기 마스터",         // 15
+        "꾸준함의 달인",       // 16
+        "하루의 조각가",       // 17
+        "성실함의 거장",       // 18
+        "인생 기록가",         // 19
+        "꾸준함의 전설"        // 20
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 유저레벨 프로그레스바 설정
+        val status = user.score / 100
+        binding.progressText.text = "Lv. ${(status+1).toString()} \n${levelTitles[status].toString()}"
         binding.levelProgressBar.progress=(user.score%100)
 
         // 예제 데이터 추가 (테스트용)
@@ -68,6 +92,8 @@ class MainActivity : AppCompatActivity() {
         val user = userPreferences.getUser()
 
         if (user != null) {
+            val status = user.score / 100
+            binding.progressText.text = "Lv. ${(status+1).toString()} \n${levelTitles[status].toString()}"
             binding.levelProgressBar.progress = (user.score % 100)
         } else {
             // 만약 유저 정보가 없을 경우
