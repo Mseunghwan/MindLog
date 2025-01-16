@@ -6,8 +6,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.letscouncil.adapter.DiaryAdapter
 import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.database.DiaryDatabase
 import com.example.letscouncil.data.entity.DiaryEntry
@@ -76,6 +74,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DataActivity::class.java))
         }
 
+        binding.btnMilestone.setOnClickListener{
+            (Intent(this, MilestoneActivity::class.java))
+        }
+
+
         // 유저레벨 프로그레스바 설정
         val status = user.score / 100
         binding.progressText.text = "Lv. ${(status+1).toString()} \n${levelTitles[status].toString()}"
@@ -105,7 +108,8 @@ class MainActivity : AppCompatActivity() {
         val cards = listOf(
             binding.btnWrite,
             binding.btnCounsel,
-            binding.btnDiary
+            binding.btnDiary,
+            binding.btnMilestone
         )
 
         cards.forEach { card ->
@@ -140,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_write -> startActivity(Intent(this, WriteActivity::class.java))
             R.id.btn_counsel -> startActivity(Intent(this, CounselActivity::class.java))
             R.id.btn_diary -> startActivity(Intent(this, DataActivity::class.java))
+            R.id.btn_milestone -> startActivity(Intent(this, MilestoneActivity::class.java))
         }
     }
 

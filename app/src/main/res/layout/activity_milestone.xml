@@ -124,7 +124,7 @@
                         android:textStyle="bold"/>
 
                     <!-- 커스텀 마일스톤 뷰가 들어갈 자리 -->
-                    <.package.MilestoneView
+                    <com.example.letscouncil.view.MilestoneView
                         android:id="@+id/milestoneView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
