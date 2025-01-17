@@ -6,8 +6,6 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="primary">#007AFF</color>
     <!-- 브랜드 색상 -->
     <color name="brand_primary">#7E57C2</color>
@@ -19,6 +17,23 @@
     <color name="background_middle">#FBFCFF</color>
     <color name="background_end">#F9F1FF</color>
 
+    <!-- Base Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
+    <!-- Gray Scale -->
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
     <!-- 웰컴 카드 그라데이션 -->
     <color name="welcome_gradient_start">#6C72CB</color>
     <color name="welcome_gradient_end">#5B5FB6</color>
@@ -29,7 +44,24 @@
     <color name="card_data_start">#B68FFF</color>
     <color name="card_analysis_start">#FF9393</color>
 
-    <!-- 텍스트 색상 -->
-    <color name="text_primary">#2C2C2C</color>
-    <color name="text_secondary">#757575</color>
+    <!-- Accent Colors -->
+    <color name="accent_blue">#007AFF</color>  <!-- Apple 스타일의 파란색 -->
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1D1D1F</color>
+    <color name="text_secondary">#86868B</color>
+
+    <!-- Background Colors -->
+    <color name="background_primary">#FCFCFD</color>  <!-- 거의 흰색에 가까운 매우 은은한 회색 -->
+    <color name="background_secondary">#FFFFFF</color>
+    <color name="card_gradient_start">#FFFFFF</color>
+    <color name="card_gradient_end">#FAFBFC</color>
+
+    <!-- Card Colors -->
+    <color name="card_write">#F5F5F7</color>
+    <color name="card_counsel">#FBFBFD</color>
+    <color name="card_diary">#F5F5F7</color>
+    <color name="card_chat">#FBFBFD</color>
+
 </resources>
+

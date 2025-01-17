@@ -2,6 +2,7 @@ package com.example.letscouncil
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -19,9 +20,13 @@ class WriteActivity : AppCompatActivity() {
     private lateinit var viewModel: DiaryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 액티비티 전환 애니메이션 설정
+        window.exitTransition = TransitionInflater.from(this)
+            .inflateTransition(R.transition.activity_fade)
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         // ViewModel 초기화
         try {

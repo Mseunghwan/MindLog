@@ -2,6 +2,7 @@ package com.example.letscouncil
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,9 @@ class UserSetupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // 액티비티 전환 애니메이션 설정
+        window.exitTransition = TransitionInflater.from(this)
+            .inflateTransition(R.transition.activity_fade)
         // ViewBinding 초기화
         binding = ActivityUserSetupBinding.inflate(layoutInflater)
         setContentView(binding.root)

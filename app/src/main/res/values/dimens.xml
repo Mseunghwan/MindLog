@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margins and Padding -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_title">17sp</dimen>
+    <dimen name="text_headline">20sp</dimen>
+    <dimen name="text_display">32sp</dimen>
+
+    <!-- Component Sizes -->
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="icon_size_medium">32dp</dimen>
+    <dimen name="icon_size_large">48dp</dimen>
+
+    <!-- Card Properties -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
+    <dimen name="card_stroke_width">1dp</dimen>
+
+    <!-- Button Properties -->
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_corner_radius">28dp</dimen>
+
+    <!-- Progress Indicator -->
+    <dimen name="progress_track_height">4dp</dimen>
+    <dimen name="progress_corner_radius">2dp</dimen>
+</resources>

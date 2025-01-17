@@ -2,6 +2,7 @@ package com.example.letscouncil
 
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -38,6 +39,10 @@ class CounselActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 액티비티 전환 애니메이션 설정
+        window.exitTransition = TransitionInflater.from(this)
+            .inflateTransition(R.transition.activity_fade)
+
         super.onCreate(savedInstanceState)
         binding = ActivityCounselBinding.inflate(layoutInflater)
         setContentView(binding.root)

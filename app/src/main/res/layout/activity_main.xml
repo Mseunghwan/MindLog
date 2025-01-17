@@ -12,340 +12,306 @@
         android:fillViewport="true"
         android:overScrollMode="never">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <!-- 상단 웰컴 섹션 -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/welcomeText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/header_gradient"
-                android:orientation="vertical"
-                android:paddingHorizontal="24dp"
-                android:paddingTop="48dp"
-                android:paddingBottom="32dp">
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Good morning"
+                android:textColor="@color/text_primary"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/welcomeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HeartSeed"
-                    android:textColor="@color/white"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="24dp"/>
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Monday, January 17"
+                android:textColor="@color/text_secondary"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@id/welcomeText"
+                app:layout_constraintTop_toBottomOf="@id/welcomeText"/>
+
+            <!-- 프로필/레벨 카드 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/profileCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200"
+                app:layout_constraintTop_toBottomOf="@id/dateText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:padding="20dp"
+                    android:gravity="center_vertical">
 
-                    <!-- 첫 번째 상태 카드 -->
+                    <ImageView
+                        android:id="@+id/avatarMiniImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/circle_background"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_launcher_foreground"/>
+
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/stat_card_background"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="오늘의 기록"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="하루를 기록하며\n몰랐던 나를 진단하기"
-                            android:textColor="@color/white"
-                            android:alpha="0.8"
-                            android:textSize="14sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="90sp"
-                        android:layout_weight="1"
-                        android:background="@drawable/stat_card_background"
-                        android:orientation="horizontal"
-                        android:padding="16dp"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center_vertical">
-
-                        <!-- 아바타 이미지 -->
-                        <ImageView
-                            android:id="@+id/avatarMiniImage"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_launcher_foreground"
-                            android:background="@drawable/avatar_background"/>
-
-                        <!-- 레벨 정보 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="12dp">
-
-                            <TextView
-                                android:id="@+id/progressText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lv. 1 시작"
-                                android:textSize="13sp"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"/>
-
-                            <ProgressBar
-                                android:id="@+id/levelProgressBar"
-                                android:layout_width="match_parent"
-                                android:layout_height="4dp"
-                                android:layout_marginTop="4dp"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:progressTint="@color/white"
-                                android:progressBackgroundTint="#4DFFFFFF"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- 메인 콘텐츠 영역 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- 캘린더 카드 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-
-                    <CalendarView
-                        android:id="@+id/miniCalendar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/calendar_background"
-                        android:padding="8dp"/>
-                </com.google.android.material.card.MaterialCardView>
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
 
-                <!-- 메뉴 그리드 -->
-                <!-- First Row -->
+                        <TextView
+                            android:id="@+id/progressText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Level 1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/levelProgressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:trackCornerRadius="4dp"
+                            app:trackThickness="4dp"
+                            app:indicatorColor="@color/accent_blue"
+                            app:trackColor="@color/gray_200"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Write Button - 큰 카드형 메인 버튼 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/writeCard"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:layout_constraintWidth_percent="0.65"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileCard"
+                android:backgroundTint="@color/accent_blue">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:gravity="bottom">
 
-                    <!-- Write Button -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btn_write"
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/white"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="160dp"
-                            android:background="@drawable/write_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@android:drawable/ic_menu_edit"
-                                android:alpha="0.9"
-                                app:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="일기 쓰기"
-                                android:textColor="@color/white"
-                                android:textSize="17sp"
-                                android:fontFamily="sans-serif-medium"
-                                android:includeFontPadding="false"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="오늘의 감정을\n기록해보세요"
-                                android:textColor="@color/white"
-                                android:alpha="0.9"
-                                android:textSize="14sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Counsel Button -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btn_counsel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="160dp"
-                            android:background="@drawable/counsel_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@android:drawable/ic_menu_today"
-                                android:alpha="0.9"
-                                app:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="분석 결과"
-                                android:textColor="@color/white"
-                                android:textSize="17sp"
-                                android:fontFamily="sans-serif-medium"
-                                android:includeFontPadding="false"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="AI가 분석한\n감정 상태를 확인하세요"
-                                android:textColor="@color/white"
-                                android:alpha="0.9"
-                                android:textSize="14sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                        android:text="Write Today's\nStory"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:lineSpacingExtra="4dp"
+                        android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- Second Row -->
+            <!-- Analysis Button - 세로로 긴 카드 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/analysisCard"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200"
+                app:layout_constraintStart_toEndOf="@id/writeCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/writeCard">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="top">
 
-                    <!-- Diary Button -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btn_diary"
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_analysis"
+                        app:tint="@color/text_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="160dp"
-                            android:background="@drawable/diary_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@android:drawable/ic_menu_agenda"
-                                android:alpha="0.9"
-                                app:tint="@android:color/black"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="일기장 보기"
-                                android:textColor="#8B4513"
-                                android:textSize="17sp"
-                                android:fontFamily="sans-serif-medium"
-                                android:includeFontPadding="false"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="지난 날들을 보관해뒀어요"
-                                android:textColor="#8B4513"
-                                android:alpha="0.9"
-                                android:textSize="14sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- AI Chat Button -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/aiMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="160dp"
-                            android:background="@drawable/chat_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@android:drawable/ic_menu_agenda"
-                                android:alpha="0.9"
-                                app:tint="@android:color/black"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="마음이와 소통"
-                                android:textColor="#2E8B57"
-                                android:textSize="17sp"
-                                android:fontFamily="sans-serif-medium"
-                                android:includeFontPadding="false"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="오늘 하루를 함께해요"
-                                android:textColor="#2E8B57"
-                                android:alpha="0.9"
-                                android:textSize="14sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                        android:layout_marginTop="12dp"
+                        android:text="My\nMood\nAnalysis"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:lineSpacingExtra="2dp"
+                        android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Journal Button -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/journalCard"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="6dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200"
+                app:layout_constraintTop_toBottomOf="@id/writeCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/chatCard"
+                app:layout_constraintWidth_percent="0.48">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="20dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Journal"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Browse entries"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_journal"
+                        app:tint="@color/text_primary"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Chat Button -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chatCard"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200"
+                app:layout_constraintTop_toTopOf="@id/journalCard"
+                app:layout_constraintStart_toEndOf="@id/journalCard"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="20dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chat"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AI companion"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_chat"
+                        app:tint="@color/text_primary"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 캘린더 섹션 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/calendarCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200"
+                app:layout_constraintTop_toBottomOf="@id/chatCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <CalendarView
+                    android:id="@+id/miniCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@color/background_primary"
+                    android:theme="@style/CalendarViewCustom"
+                    android:layout_margin="8dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

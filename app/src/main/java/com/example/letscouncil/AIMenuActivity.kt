@@ -1,5 +1,6 @@
 package com.example.letscouncil
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,10 @@ class AIMenuActivity : AppCompatActivity() {
     private val chatAdapter = ChatAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 액티비티 전환 애니메이션 설정
+        window.exitTransition = TransitionInflater.from(this)
+            .inflateTransition(R.transition.activity_fade)
+
         super.onCreate(savedInstanceState)
         binding = ActiivityAiBinding.inflate(layoutInflater)
         setContentView(binding.root)

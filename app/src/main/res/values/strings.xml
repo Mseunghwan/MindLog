@@ -1,31 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">마음씨</string>
-    <string name="action_go">Go</string>
-    <string name="action_try">내 감정 알기</string>
+    <!-- App Name -->
+    <string name="app_name">HeartSeed</string>
 
-    <!-- Menu strings -->
-    <string name="menu_summarize_title">일기 분석하기</string>
-    <string name="menu_summarize_description">당신의 오늘 어떤 감정을 느꼈나요?</string>
-    <string name="menu_reason_title">Generate text from text-and-image input (multimodal)</string>
-    <string name="menu_reason_description">Sample app for uploading images and asking about them</string>
-    <string name="menu_chat_title">Build multi-turn conversations (chat)</string>
-    <string name="menu_chat_description">Sample app demonstrating a conversational UI</string>
+    <!-- Main Screen -->
+    <string name="welcome_morning">Good morning</string>
+    <string name="welcome_afternoon">Good afternoon</string>
+    <string name="welcome_evening">Good evening</string>
 
-    <!-- Summarize sample strings -->
-    <string name="summarize_label">Text</string>
-    <string name="summarize_hint">Enter text to summarize</string>
+    <!-- Action Buttons -->
+    <string name="action_write">Write</string>
+    <string name="action_write_desc">Record your thoughts and feelings</string>
+    <string name="action_analysis">Analysis</string>
+    <string name="action_analysis_desc">Check your emotional patterns</string>
+    <string name="action_journal">Journal</string>
+    <string name="action_journal_desc">Browse your past entries</string>
+    <string name="action_chat">Chat</string>
+    <string name="action_chat_desc">Talk with AI companion</string>
 
-    <!-- Photo Reasoning sample strings -->
-    <string name="reason_label">Question</string>
-    <string name="reason_hint">Upload an image and then ask a question</string>
-    <string name="add_image">Add Image</string>
+    <!-- Level System -->
+    <string name="level_format">Level %d</string>
+    <string name="level_progress">%d / 100</string>
 
-    <!-- Chat sample strings -->
-    <string name="chat_label">Message</string>
-    <string name="action_send">Send</string>
+    <!-- Date Format -->
+    <string name="date_format">EEEE, MMMM d</string>
 
-    <string name="enter_name">Enter your name</string>
-    <string name="enter_birth_date">Enter your birth date</string>
-    <string name="enter_occupation">Enter your occupation</string>
-    <string name="save">Save</string>
+    <!-- Error Messages -->
+    <string name="error_loading_data">Couldn\'t load data</string>
+    <string name="error_saving_data">Couldn\'t save data</string>
 </resources>
