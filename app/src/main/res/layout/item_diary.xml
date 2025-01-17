@@ -30,6 +30,7 @@
             android:textSize="14sp"
             android:letterSpacing="-0.01"
             android:fontFamily="sans-serif-medium"
+            android:maxLines="5"
         />
 
         <!-- 내용 -->
