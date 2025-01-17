@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
@@ -50,9 +51,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
+                app:cardElevation="4dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
                 app:strokeColor="@color/gray_200"
                 app:layout_constraintTop_toBottomOf="@id/dateText"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,63 +107,69 @@
             <!-- Write Button - 큰 카드형 메인 버튼 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/writeCard"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="24dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:layout_constraintWidth_percent="0.65"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/accent_blue"
+                app:cardCornerRadius="24sp"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileCard"
-                android:backgroundTint="@color/accent_blue">
+                app:layout_constraintWidth_percent="0.65"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp"
-                    android:gravity="bottom">
+                    android:padding="30dp">
 
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_marginBottom="16dp"
                         android:src="@drawable/ic_edit"
-                        app:tint="@color/white"
-                        android:layout_marginBottom="16dp"/>
+                        app:tint="@color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Write Today's\nStory"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-medium"
                         android:lineSpacingExtra="4dp"
-                        android:fontFamily="sans-serif-medium"/>
+                        android:text="Your Story"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Analysis Button - 세로로 긴 카드 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/analysisCard"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_marginStart="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="24dp"
+                app:cardElevation="4dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
                 app:strokeColor="@color/gray_200"
                 app:layout_constraintStart_toEndOf="@id/writeCard"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/writeCard">
+                app:layout_constraintTop_toTopOf="@id/writeCard"
+                >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp"
-                    android:gravity="top">
+                    android:gravity="top"
+                    >
 
                     <ImageView
                         android:layout_width="32dp"
@@ -183,29 +192,30 @@
             <!-- Journal Button -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/journalCard"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="24dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/gray_200"
-                app:layout_constraintTop_toBottomOf="@id/writeCard"
-                app:layout_constraintStart_toStartOf="parent"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toStartOf="@id/chatCard"
-                app:layout_constraintWidth_percent="0.48">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/writeCard"
+                app:layout_constraintWidth_percent="0.48"
+                app:strokeColor="@color/gray_200"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
+                    android:padding="20dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="80sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
@@ -213,48 +223,42 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Journal"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Diary"
                             android:textColor="@color/text_primary"
-                            android:textSize="18sp"
-                            android:fontFamily="sans-serif-medium"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Browse entries"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="14sp"/>
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_journal"
-                        app:tint="@color/text_primary"/>
+                        app:tint="@color/text_primary" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Chat Button -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chatCard"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="24dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/gray_200"
-                app:layout_constraintTop_toTopOf="@id/journalCard"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/journalCard"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="@id/journalCard"
+                app:strokeColor="@color/gray_200"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
+                    android:padding="20dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -265,24 +269,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chat"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="companion"
                             android:textColor="@color/text_primary"
-                            android:textSize="18sp"
-                            android:fontFamily="sans-serif-medium"/>
+                            android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="AI companion"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="14sp"/>
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_chat"
-                        app:tint="@color/text_primary"/>
+                        app:tint="@color/text_primary" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -294,9 +292,11 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="24dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
                 app:strokeColor="@color/gray_200"
                 app:layout_constraintTop_toBottomOf="@id/chatCard"
                 app:layout_constraintStart_toStartOf="parent"

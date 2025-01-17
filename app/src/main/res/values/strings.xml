@@ -4,18 +4,18 @@
     <string name="app_name">HeartSeed</string>
 
     <!-- Main Screen -->
-    <string name="welcome_morning">Good morning</string>
-    <string name="welcome_afternoon">Good afternoon</string>
-    <string name="welcome_evening">Good evening</string>
+    <string name="welcome_morning">님, \n좋은 아침이에요!</string>
+    <string name="welcome_afternoon">님, \n좋은 오후네요!</string>
+    <string name="welcome_evening">님, \n좋은 저녁이에요!</string>
 
     <!-- Action Buttons -->
-    <string name="action_write">Write</string>
+    <string name="action_write">일기 작성</string>
     <string name="action_write_desc">Record your thoughts and feelings</string>
-    <string name="action_analysis">Analysis</string>
+    <string name="action_analysis">일기 인사이트</string>
     <string name="action_analysis_desc">Check your emotional patterns</string>
-    <string name="action_journal">Journal</string>
+    <string name="action_journal">일기장</string>
     <string name="action_journal_desc">Browse your past entries</string>
-    <string name="action_chat">Chat</string>
+    <string name="action_chat">마음이</string>
     <string name="action_chat_desc">Talk with AI companion</string>
 
     <!-- Level System -->
