@@ -10,7 +10,7 @@ import com.example.letscouncil.data.entity.AnalysisResult
 
 @Database(
     entities = [DiaryEntry::class, AnalysisResult::class],  // AnalysisResult 엔티티 추가
-    version = 2  // 버전 1에서 2로 증가
+    version = 3  // 버전 1에서 2로 증가 + 에서 3으로 증가
 )
 abstract class DiaryDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao

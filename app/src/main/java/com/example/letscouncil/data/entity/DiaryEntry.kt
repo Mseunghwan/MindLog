@@ -10,5 +10,6 @@ data class DiaryEntry(
     val date: Long = System.currentTimeMillis(),
     val content: String,
     val mood: String? = null,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    var isExpanded: Boolean = false // 추가: 확장 상태 관리
 )

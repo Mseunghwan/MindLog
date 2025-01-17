@@ -37,10 +37,6 @@
             android:name=".AIMenuActivity"
             android:exported="false" />
         <activity android:name=".UserSetupActivity" />
-        <activity
-            android:name=".MilestoneActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>

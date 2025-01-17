@@ -345,58 +345,6 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btn_milestone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="160dp"
-                            android:background="@drawable/diary_gradient"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@android:drawable/ic_dialog_map"
-                                android:alpha="0.9"
-                                app:tint="@android:color/black"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="마일스톤 확인"
-                                android:textColor="#8B4513"
-                                android:textSize="17sp"
-                                android:fontFamily="sans-serif-medium"
-                                android:includeFontPadding="false"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="이뤄야 할 길"
-                                android:textColor="#8B4513"
-                                android:alpha="0.9"
-                                android:textSize="14sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -74,15 +74,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DataActivity::class.java))
         }
 
-        binding.btnMilestone.setOnClickListener{
-            (Intent(this, MilestoneActivity::class.java))
-        }
-
-
         // 유저레벨 프로그레스바 설정
         val status = user.score / 100
         binding.progressText.text = "Lv. ${(status+1).toString()} \n${levelTitles[status].toString()}"
         binding.levelProgressBar.progress=(user.score%100)
+
 
         // 예제 데이터 추가 (테스트용)
         // addSampleDiaryData()
@@ -108,8 +104,7 @@ class MainActivity : AppCompatActivity() {
         val cards = listOf(
             binding.btnWrite,
             binding.btnCounsel,
-            binding.btnDiary,
-            binding.btnMilestone
+            binding.btnDiary
         )
 
         cards.forEach { card ->
@@ -144,7 +139,6 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_write -> startActivity(Intent(this, WriteActivity::class.java))
             R.id.btn_counsel -> startActivity(Intent(this, CounselActivity::class.java))
             R.id.btn_diary -> startActivity(Intent(this, DataActivity::class.java))
-            R.id.btn_milestone -> startActivity(Intent(this, MilestoneActivity::class.java))
         }
     }
 

@@ -18,10 +18,17 @@ class DiaryAdapter(private var diaryEntries: List<DiaryEntry>) :
     // ViewHolder 클래스 정의
     class DiaryViewHolder(private val binding: ItemDiaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(entry: DiaryEntry) {
+        fun bind(entry: DiaryEntry, onItemClick: (Int) -> Unit) {
             binding.dateText.text = formatDate(entry.date)
             binding.contentText.text = entry.content
-            binding.textdata.setOnClickListener{
+
+            // 확장 상태에 따라 텍스트의 최대 줄 수 설정
+            binding.contentText.maxLines = if (entry.isExpanded) Int.MAX_VALUE else 3
+            binding.contentText.ellipsize = if (entry.isExpanded) null else android.text.TextUtils.TruncateAt.END
+
+            // 클릭 이벤트 설정
+            binding.textdata.setOnClickListener {
+                onItemClick(adapterPosition) // 클릭된 아이템의 위치 전달
             }
         }
 
@@ -41,8 +48,12 @@ class DiaryAdapter(private var diaryEntries: List<DiaryEntry>) :
     }
 
     override fun onBindViewHolder(holder: DiaryViewHolder, position: Int) {
-        holder.bind(diaryEntries[position])
-
+        val entry = diaryEntries[position]
+        holder.bind(entry) { clickedPosition ->
+            // 확장 상태 토글
+            diaryEntries[clickedPosition].isExpanded = !diaryEntries[clickedPosition].isExpanded
+            notifyItemChanged(clickedPosition) // 변경된 아이템만 갱신
+        }
     }
 
     override fun getItemCount(): Int = diaryEntries.size
