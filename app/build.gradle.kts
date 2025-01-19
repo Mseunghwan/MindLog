@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14" // Kotlin 버전에 맞는 KSP
 }
 
 android {
@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.letscouncil"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -30,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -44,13 +44,13 @@ android {
     defaultConfig {
         buildConfigField("String", "apiKey", "\"AIzaSyB3t-QgoNfPSzmcIw1I7B7SJ2rbjneinq0\"")
     }
+
 }
 
 dependencies {
     val room_version = "2.6.1"
-    implementation("com.airbnb.android:lottie:6.1.0")
     implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version") // kapt에서 ksp로 변경
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -96,4 +96,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation("com.airbnb.android:lottie:6.1.0")
+
 }
