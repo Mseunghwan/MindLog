@@ -1,26 +1,92 @@
 package com.example.letscouncil.feature.chat
+import android.app.Application
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.util.Calendar
 
-class ChatViewModel(private val generativeModel: GenerativeModel) : ViewModel() {
+class ChatViewModel(
+    private val generativeModel: GenerativeModel,
+    application: Application
+) : AndroidViewModel(application) {
+
+    private val sharedPreferences = application.getSharedPreferences(
+        "chat_preferences", Context.MODE_PRIVATE
+    )
+
     private val _chatMessages = MutableLiveData<List<ChatMessage>>(listOf(
-        ChatMessage(content = "오늘 하루 어땠어?", isUser = false) // 초기 AI 메시지
+        ChatMessage(content = "오늘 하루 어땠어?", isUser = false)
     ))
-
-    private val _chatHistory = MutableLiveData<List<ChatMessage>>(emptyList()) // 맥락 관련 설정 추가
-    val chatHistory: LiveData<List<ChatMessage>> get() = _chatHistory // 맥락 관련 설정 추가
-
-
     val chatMessages: LiveData<List<ChatMessage>> get() = _chatMessages
 
-    private fun updateChatHistory(newMessage: ChatMessage) {
-        val currentHistory = _chatHistory.value.orEmpty()
-        _chatHistory.postValue(currentHistory + newMessage)
-    } // 맥락 관련 설정 추가
+    private val _chatHistory = MutableLiveData<List<ChatMessage>>(emptyList())
+    val chatHistory: LiveData<List<ChatMessage>> get() = _chatHistory
 
+    init {
+        loadChatHistory()
+    }
+
+    private fun loadChatHistory() {
+        val lastSavedDate = sharedPreferences.getLong("last_saved_date", 0)
+        val currentDate = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+
+        // 날짜가 변경되었는지 확인
+        if (lastSavedDate < currentDate) {
+            // 하루가 지났으면 초기화
+            _chatMessages.value = listOf(ChatMessage(content = "오늘 하루 어땠어?", isUser = false))
+            _chatHistory.value = emptyList()
+            saveChatHistory(emptyList())
+            sharedPreferences.edit().putLong("last_saved_date", currentDate).apply()
+        } else {
+            // 같은 날이면 저장된 대화 불러오기
+            val savedMessages = getSavedMessages()
+            if (savedMessages.isNotEmpty()) {
+                _chatMessages.value = savedMessages
+                _chatHistory.value = savedMessages
+            }
+        }
+    }
+
+    private fun saveChatHistory(messages: List<ChatMessage>) {
+        val gson = Gson()
+        val jsonMessages = gson.toJson(messages)
+        sharedPreferences.edit()
+            .putString("chat_messages", jsonMessages)
+            .putLong("last_saved_date", System.currentTimeMillis())
+            .apply()
+    }
+
+    private fun getSavedMessages(): List<ChatMessage> {
+        val gson = Gson()
+        val jsonMessages = sharedPreferences.getString("chat_messages", null)
+        return if (jsonMessages != null) {
+            try {
+                gson.fromJson(jsonMessages, object : TypeToken<List<ChatMessage>>() {}.type)
+            } catch (e: Exception) {
+                emptyList()
+            }
+        } else {
+            emptyList()
+        }
+    }
+
+    private fun updateChatHistory(newMessage: ChatMessage) {
+        val currentMessages = _chatMessages.value.orEmpty()
+        val updatedMessages = currentMessages + newMessage
+        _chatMessages.postValue(updatedMessages)
+        saveChatHistory(updatedMessages)
+    }
     private val _currentMood = MutableLiveData<Mood>(Mood.NEUTRAL)
     val currentMood: LiveData<Mood> = _currentMood
 

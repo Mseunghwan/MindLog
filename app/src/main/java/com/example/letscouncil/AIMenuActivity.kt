@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.letscouncil.databinding.ActiivityAiBinding
 import com.example.letscouncil.feature.chat.ChatAdapter
 import com.example.letscouncil.feature.chat.ChatViewModel
-import com.example.letscouncil.GenerativeViewModelFactory
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
 class AIMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActiivityAiBinding
-    private val chatViewModel: ChatViewModel by viewModels { GenerativeViewModelFactory }
-    private val chatAdapter = ChatAdapter()
+    private val chatViewModel: ChatViewModel by viewModels {
+        GenerativeAiViewModelFactory(application)
+    }
 
+    private val chatAdapter = ChatAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 액티비티 전환 애니메이션 설정
         window.exitTransition = TransitionInflater.from(this)
             .inflateTransition(R.transition.activity_fade)
 
@@ -30,7 +30,6 @@ class AIMenuActivity : AppCompatActivity() {
         setupToolbar()
         setupChatRecyclerView()
         setupListeners()
-        observeViewModel()
         setupObservers()
         setupQuickResponses()
         setupMoodButton()
@@ -61,63 +60,6 @@ class AIMenuActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeViewModel() {
-        chatViewModel.chatMessages.observe(this) { messages ->
-            chatAdapter.submitList(messages)
-            binding.chatRecyclerView.scrollToPosition(messages.size - 1)
-        }
-    }
-
-    private fun setupObservers() {
-        // 채팅 메시지 관찰
-        chatViewModel.chatMessages.observe(this) { messages ->
-            chatAdapter.submitList(messages)
-            binding.chatRecyclerView.scrollToPosition(messages.size - 1)
-        }
-
-        // 감정 상태 관찰
-        chatViewModel.currentMood.observe(this) { mood ->
-            binding.moodChip.text = "기분: ${mood.emoji}"
-            binding.emotionButton.setImageResource(
-                when (mood) {
-                    ChatViewModel.Mood.VERY_HAPPY -> R.drawable.ic_mood
-                    ChatViewModel.Mood.SAD -> R.drawable.ic_mood
-                    else -> R.drawable.ic_mood
-                }
-            )
-        }
-
-        // 대화 진행도 관찰
-        chatViewModel.conversationProgress.observe(this) { progress ->
-            binding.moodProgress.progress = progress
-            when (progress) {
-                in 0..30 -> "대화를 시작해볼까요?"
-                in 31..60 -> "대화가 잘 진행되고 있어요!"
-                in 61..90 -> "정말 좋은 대화네요 ✨"
-                else -> "오늘도 좋은 대화 였어요 💫"
-            }.also { binding.progressText.text = it }
-        }
-    }
-
-    private fun setupQuickResponses() {
-        chatViewModel.quickResponses.forEach { response ->
-            val chip = createQuickResponseChip(response)
-            binding.quickResponseGroup.addView(chip)
-        }
-    }
-
-    private fun createQuickResponseChip(response: ChatViewModel.QuickResponse): Chip {
-        return Chip(this).apply {
-            text = "${response.text} ${response.emoji}"
-            isCheckable = false
-            setOnClickListener {
-                lifecycleScope.launch {
-                    chatViewModel.sendQuickResponse(response)
-                }
-            }
-        }
-    }
-
     private fun setupMoodButton() {
         binding.emotionButton.setOnClickListener {
             showMoodSelectionDialog()
@@ -136,5 +78,50 @@ class AIMenuActivity : AppCompatActivity() {
                 }
             }
             .show()
+    }
+
+    private fun setupObservers() {
+        // 채팅 메시지 관찰
+        chatViewModel.chatMessages.observe(this) { messages ->
+            chatAdapter.submitList(messages)
+            binding.chatRecyclerView.scrollToPosition(messages.size - 1)
+        }
+
+        // 감정 상태 관찰
+        chatViewModel.currentMood.observe(this) { mood ->
+            binding.moodChip.text = "기분: ${mood.emoji}"
+            binding.emotionButton.setImageResource(R.drawable.ic_mood)
+        }
+
+        // 대화 진행도 관찰
+        chatViewModel.conversationProgress.observe(this) { progress ->
+            binding.moodProgress.progress = progress
+            binding.progressText.text = when (progress) {
+                in 0..30 -> "대화를 시작해볼까요?"
+                in 31..60 -> "대화가 잘 진행되고 있어요!"
+                in 61..90 -> "정말 좋은 대화네요 ✨"
+                else -> "오늘도 좋은 대화 였어요 💫"
+            }
+        }
+    }
+
+    private fun setupQuickResponses() {
+        binding.quickResponseGroup.removeAllViews() // 기존 뷰 제거
+        chatViewModel.quickResponses.forEach { response ->
+            val chip = createQuickResponseChip(response)
+            binding.quickResponseGroup.addView(chip)
+        }
+    }
+
+    private fun createQuickResponseChip(response: ChatViewModel.QuickResponse): Chip {
+        return Chip(this).apply {
+            text = "${response.text} ${response.emoji}"
+            isCheckable = false
+            setOnClickListener {
+                lifecycleScope.launch {
+                    chatViewModel.sendQuickResponse(response)
+                }
+            }
+        }
     }
 }
