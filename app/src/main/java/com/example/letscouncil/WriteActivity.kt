@@ -63,11 +63,19 @@ class WriteActivity : AppCompatActivity() {
 
         if (content.isNotBlank() && content != "글을 입력해주세요") {
             viewModel.saveDiary(content)
-            Toast.makeText(this, "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show()
-            if (user != null) {
-                user.score += 20
-                userPreferences.saveUser(user)
+
+            // 오늘 첫 작성인 경우에만 포인트 지급
+            if (!userPreferences.getTodayWritten()) {
+                if (user != null) {
+                    user.score += 20
+                    userPreferences.saveUser(user)
+                }
+                userPreferences.setTodayWritten(true)
+                Toast.makeText(this, "일기가 저장되었습니다. +20 포인트를 획득했어요!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
+
             Log.e("user", user.toString())
             finish()
         } else {

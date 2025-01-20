@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.res.ResourcesCompat
 import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
@@ -41,6 +42,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 자정이 지나면 today_written 초기화 - for manage point
+        val userPreferences = UserPreferences(this)
+        val calendar = Calendar.getInstance()
+        if (calendar.get(Calendar.HOUR_OF_DAY) == 0 && calendar.get(Calendar.MINUTE) == 0) {
+            userPreferences.setTodayWritten(false)
+        }
 
         setupUI()
         setupClickListeners()

@@ -34,4 +34,15 @@ class UserPreferences(context: Context) {
             null
         }
     }
+
+    // 오늘 일기 작성 여부 저장 for point
+    fun setTodayWritten(written: Boolean) {
+        sharedPreferences.edit().putBoolean("today_written", written).apply()
+    }
+
+    // 오늘 일기 작성 여부 확인
+    fun getTodayWritten(): Boolean {
+        return sharedPreferences.getBoolean("today_written", false)
+    }
+
 }

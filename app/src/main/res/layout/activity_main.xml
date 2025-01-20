@@ -17,34 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- 상단 웰컴 섹션 -->
-            <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="0dp"
+            <!-- 상단 섹션 -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Good morning"
-                android:textColor="@color/text_primary"
-                android:textSize="40sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:orientation="vertical"
+                android:id="@+id/topP"
+                android:background="@drawable/top_section_gradient"
+                android:paddingBottom="32dp"
+                tools:ignore="MissingConstraints">
 
-            <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Monday, January 17"
-                android:textColor="@color/text_secondary"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="@id/welcomeText"
-                app:layout_constraintTop_toBottomOf="@id/welcomeText"/>
+                <TextView
+                    android:id="@+id/welcomeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="56dp"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/on_park"
+                    android:text="Good morning"
+                    android:textColor="@color/white"
+                    android:textSize="60sp"/>
 
-            <!-- 프로필/레벨 카드 -->
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Monday, January 17"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/on_park"
+                    android:alpha="0.8"
+                    android:textSize="30sp"/>
+            </LinearLayout><!-- 프로필/레벨 카드 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profileCard"
                 android:layout_width="0dp"
@@ -57,16 +63,16 @@
                 app:cardUseCompatPadding="true"
                 app:strokeWidth="0dp"
                 app:strokeColor="@color/gray_200"
-                app:layout_constraintTop_toBottomOf="@id/dateText"
+                app:layout_constraintTop_toBottomOf="@id/topP"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
+                    android:padding="20dp">
 
                     <ImageView
                         android:id="@+id/avatarMiniImage"
@@ -74,7 +80,7 @@
                         android:layout_height="48dp"
                         android:background="@drawable/circle_background"
                         android:padding="12dp"
-                        android:src="@drawable/ic_launcher_foreground"/>
+                        android:src="@drawable/ic_launcher_foreground" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -86,20 +92,20 @@
                             android:id="@+id/progressText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/on_park"
                             android:text="Level 1"
                             android:textColor="@color/text_primary"
-                            android:textSize="17sp"
-                            android:fontFamily="sans-serif-medium"/>
+                            android:textSize="25sp" />
 
                         <com.google.android.material.progressindicator.LinearProgressIndicator
                             android:id="@+id/levelProgressBar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            app:trackCornerRadius="4dp"
-                            app:trackThickness="4dp"
                             app:indicatorColor="@color/accent_blue"
-                            app:trackColor="@color/gray_200"/>
+                            app:trackColor="@color/gray_200"
+                            app:trackCornerRadius="4dp"
+                            app:trackThickness="4dp" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -138,11 +144,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/on_park"
                         android:lineSpacingExtra="4dp"
-                        android:text="Your Story"
+                        android:text="일기 쓰기"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="40sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -181,11 +187,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="My\nMood\nAnalysis"
+                        android:text="내 진짜\n마음은\n뭘까요"
                         android:textColor="@color/text_primary"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:lineSpacingExtra="2dp"
-                        android:fontFamily="sans-serif-medium"/>
+                        android:fontFamily="@font/on_park"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -223,8 +229,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Diary"
+                            android:fontFamily="@font/on_park"
+                            android:text="나만봐 일기장"
                             android:textColor="@color/text_primary"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -269,10 +275,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="companion"
+                            android:fontFamily="@font/on_park"
+                            android:text="내 친구 마음이 "
                             android:textColor="@color/text_primary"
-                            android:textSize="18sp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
