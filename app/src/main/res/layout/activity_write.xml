@@ -5,40 +5,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_gradient"
     tools:context=".WriteActivity">
 
-    <!-- 상단 앱바 -->
+    <!-- 새로운 상단 앱바 디자인 -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@color/white">
+            android:layout_height="80dp"
+            android:background="@drawable/top_section_gradient"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                android:letterSpacing="-0.02" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+            <!-- 뒤로가기 버튼 -->
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/white"/>
+
+            <!-- 앱 이름 -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="뭐든 좋으니 써봅시다"
+                android:textAlignment="center"
+                android:fontFamily="@font/on_park"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:alpha="0.9"/>
+
+            <!-- 우측 여백을 위한 더미 뷰 -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
-        <!-- 구분선 -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F2F2F2"/>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- 메인 컨텐츠 영역 -->
@@ -46,100 +64,105 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:background="@color/white"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <!-- 상단 여백 -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="32dp" />
-
-            <!-- 제목 텍스트 -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:text="오늘의 이야기"
-                android:textSize="32sp"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="-0.02" />
-
-            <!-- 부제목 텍스트 -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="8dp"
-                android:text="당신의 하루를 기록해보세요"
-                android:textSize="16sp"
-                android:textColor="@color/text_secondary"
-                android:letterSpacing="-0.01" />
-
-            <!-- 입력 영역 -->
-            <EditText
-                android:id="@+id/editMessage"
+            <!-- 일기 작성 카드 -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="32dp"
-                android:background="@null"
-                android:gravity="top"
-                android:hint="오늘 있었던 일을 자유롭게 적어보세요..."
-                android:textColorHint="#BDBDBD"
-                android:textColor="@color/text_primary"
-                android:textSize="17sp"
-                android:lineSpacingExtra="8dp"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:scrollbars="none"
-                android:paddingBottom="100dp" />
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="100dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:strokeWidth="0dp">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
+                    <!-- 제목 텍스트 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="오늘의 이야기"
+                        android:textSize="40sp"
+                        android:textColor="@color/text_primary"
+                        android:fontFamily="@font/on_park"/>
+
+                    <!-- 입력 영역 -->
+                    <EditText
+                        android:id="@+id/editMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="32dp"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:hint="오늘 있었던 일을 자유롭게 적어보세요..."
+                        android:textColorHint="@color/gray_400"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="17sp"
+                        android:lineSpacingExtra="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <!-- 하단 저장 버튼 영역 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/bottom_gradient_background">
+        android:layout_gravity="bottom">
 
-        <!-- byte 체크 텍스트 -->
-        <TextView
-            android:id="@+id/bytecheck"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@id/savebtn"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_margin="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp">
 
-        <!-- 저장 버튼 -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/savebtn"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="작성 완료"
-            android:textSize="16sp"
-            android:letterSpacing="-0.01"
-            app:cornerRadius="12dp"
-            android:backgroundTint="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- byte 체크 텍스트 -->
+                <TextView
+                    android:id="@+id/bytecheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- 저장 버튼 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/savebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="작성 완료"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/on_park"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/accent_blue"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

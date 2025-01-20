@@ -39,10 +39,12 @@ class WriteActivity : AppCompatActivity() {
             Log.e("WriteActivity", "ViewModel initialization failed: ${e.message}", e)
         }
 
-        setSupportActionBar(binding.toolbar1)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // 뒤로가기 버튼 클릭 리스너 설정
+        binding.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
-        // 버튼 설정
+        // 저장 버튼 설정
         binding.savebtn.setOnClickListener { saveToDatabase() }
     }
 
