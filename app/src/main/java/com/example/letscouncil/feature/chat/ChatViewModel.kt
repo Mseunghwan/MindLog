@@ -21,39 +21,101 @@ class ChatViewModel(private val generativeModel: GenerativeModel) : ViewModel() 
         _chatHistory.postValue(currentHistory + newMessage)
     } // 맥락 관련 설정 추가
 
-    suspend fun sendMessage(userMessage: String) {
+    private val _currentMood = MutableLiveData<Mood>(Mood.NEUTRAL)
+    val currentMood: LiveData<Mood> = _currentMood
+
+    private val _conversationProgress = MutableLiveData<Int>(0)
+    val conversationProgress: LiveData<Int> = _conversationProgress
+
+    // 감정 상태 enum 클래스
+    enum class Mood(val emoji: String, val description: String) {
+        VERY_HAPPY("😊", "매우 좋음"),
+        HAPPY("🙂", "좋음"),
+        NEUTRAL("😐", "보통"),
+        SAD("😢", "슬픔"),
+        ANXIOUS("😰", "불안"),
+        ANGRY("😠", "화남")
+    }
+
+    // 빠른 응답 데이터 클래스
+    data class QuickResponse(
+        val text: String,
+        val emoji: String,
+        val type: ResponseType
+    )
+
+    enum class ResponseType {
+        EMPATHY, QUESTION, ENCOURAGEMENT, HAPPINESS
+    }
+
+    // 빠른 응답 목록
+    val quickResponses = listOf(
+        QuickResponse("그렇구나", "🤔", ResponseType.EMPATHY),
+        QuickResponse("더 자세히 말해줘", "✨", ResponseType.QUESTION),
+        QuickResponse("힘들었겠다", "😢", ResponseType.EMPATHY),
+        QuickResponse("정말 기뻐", "🎉", ResponseType.HAPPINESS),
+        QuickResponse("잘 했어!", "👍", ResponseType.ENCOURAGEMENT)
+    )
+
+    // 대화 진행도 업데이트
+    private fun updateConversationProgress(message: String) {
+        val currentProgress = _conversationProgress.value ?: 0
+        val newProgress = when {
+            message.length > 50 -> currentProgress + 15
+            message.length > 20 -> currentProgress + 10
+            else -> currentProgress + 5
+        }
+        _conversationProgress.value = minOf(newProgress, 100)
+    }
+
+    // 감정 분석 및 업데이트
+    private fun updateMood(message: String) {
+        // 여기에 감정 분석 로직 추가
+        // 예시로 간단한 키워드 기반 분석
+        val newMood = when {
+            message.contains(Regex("행복|좋아|기쁘|즐거")) -> Mood.VERY_HAPPY
+            message.contains(Regex("웃|재미|좋은|감사")) -> Mood.HAPPY
+            message.contains(Regex("슬프|우울|힘들")) -> Mood.SAD
+            message.contains(Regex("걱정|불안|두려")) -> Mood.ANXIOUS
+            message.contains(Regex("화|짜증|싫")) -> Mood.ANGRY
+            else -> Mood.NEUTRAL
+        }
+        _currentMood.value = newMood
+    }
+
+    // 메시지 전송 함수 수정
+    suspend fun sendMessage(userMessage: String, isQuickResponse: Boolean = false) {
         try {
-            // 사용자 메시지 추가
             val userMessageObject = ChatMessage(userMessage, isUser = true)
-            Log.d("UserMessage", "Adding user message: $userMessageObject") // 사용자 메시지 디버깅
-            val currentMessages = _chatMessages.value.orEmpty()
-            _chatMessages.postValue(currentMessages + userMessageObject)
-
-            // 메시지 리스트 디버깅
-            Log.d("ChatMessages", "Updated chat messages: ${_chatMessages.value}")
-
-            // 대화 기록 업데이트
+            _chatMessages.postValue(_chatMessages.value.orEmpty() + userMessageObject)
             updateChatHistory(userMessageObject)
 
-            // 프롬프트 생성 및 AI 호출
-            val engineeredPrompt = preparePrompt(userMessage)
-            val chat = generativeModel.startChat()
+            // 대화 진행도와 감정 상태 업데이트
+            updateConversationProgress(userMessage)
+            if (!isQuickResponse) {
+                updateMood(userMessage)
+            }
 
             // AI 응답 생성
+            val engineeredPrompt = preparePrompt(userMessage)
+            val chat = generativeModel.startChat()
             val response = chat.sendMessage(engineeredPrompt)
             val responseText = response.text?.toString() ?: "응답을 생성할 수 없습니다"
             val responseMessage = ChatMessage(responseText, isUser = false)
 
-            // AI 응답 추가 및 디버깅
             _chatMessages.postValue(_chatMessages.value.orEmpty() + responseMessage)
-            Log.d("ChatMessages", "AI response added: ${_chatMessages.value}")
             updateChatHistory(responseMessage)
         } catch (e: Exception) {
-            val errorMessage = ChatMessage("문제가 발생했어요. 다시 시도해 주세요!", isUser = false)
+            val errorMessage = ChatMessage("죄송해요, 다시 한 번 말씀해 주시겠어요?", isUser = false)
             _chatMessages.postValue(_chatMessages.value.orEmpty() + errorMessage)
-            Log.e("ChatMessages", "Error occurred: $e")
+            Log.e("ChatViewModel", "Error: $e")
             updateChatHistory(errorMessage)
         }
+    }
+
+    // 빠른 응답 선택 처리
+    suspend fun sendQuickResponse(response: QuickResponse) {
+        sendMessage("${response.text} ${response.emoji}", isQuickResponse = true)
     }
 
 
