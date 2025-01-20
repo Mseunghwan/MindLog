@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.letscouncil.data.dao.DiaryDao
 import com.example.letscouncil.data.database.DiaryDatabase
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.data.entity.AnalysisResult
@@ -18,11 +19,17 @@ import kotlinx.coroutines.launch
 class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: DiaryRepository
     private val _allEntries: LiveData<List<DiaryEntry>>
+    private val diaryDao: DiaryDao
 
     init {
-        val diaryDao = DiaryDatabase.getDatabase(application).diaryDao()
+        val database = DiaryDatabase.getDatabase(application)
+        diaryDao = database.diaryDao()
         repository = DiaryRepository(diaryDao)
         _allEntries = repository.allEntries.asLiveData()
+    }
+    // 이번 달의 일기 개수를 LiveData로 변환
+    fun getCurrentMonthEntriesCount(): LiveData<Int> {
+        return diaryDao.getCurrentMonthEntriesCount().asLiveData()
     }
 
     fun getAllEntries(): LiveData<List<DiaryEntry>> = _allEntries
@@ -60,4 +67,6 @@ class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     fun saveAnalysisResult(analysis: AnalysisResult) = viewModelScope.launch {
         repository.saveAnalysis(analysis)
     }
+
+
 }

@@ -1,57 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="8dp"
-    android:animateLayoutChanges="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="16dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="4dp">
 
-
+    <!-- 왼쪽 날짜 영역 -->
     <LinearLayout
-        android:id="@+id/textdata"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:clickable="true"
-        android:padding="20dp">
+        android:gravity="center_horizontal">
 
+        <!-- 날짜 배경 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/accent_blue">
 
-        <!-- 날짜 -->
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/brand_primary"
-            android:textSize="14sp"
-            android:letterSpacing="-0.01"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="5"
-        />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <!-- 내용 -->
-        <TextView
-            android:id="@+id/contentText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:lineSpacingExtra="4dp"
-            android:maxLines="8"
-            android:ellipsize="end" />
+                <!-- 날짜(일) -->
+                <TextView
+                    android:id="@+id/dayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/on_park"
+                    android:includeFontPadding="false"/>
 
-        <!-- 구분선 -->
+                <!-- 날짜(월) -->
+                <TextView
+                    android:id="@+id/monthText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/on_park"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="-2dp"/>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 연결선 -->
         <View
-            android:layout_width="40dp"
-            android:layout_height="4dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/diary_item_indicator" />
-
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:background="#E0E0E0"/>
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    <!-- 일기 내용 카드 -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="1dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E0E0E0">
+
+        <LinearLayout
+            android:id="@+id/textdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 내용 -->
+            <TextView
+                android:id="@+id/contentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:fontFamily="@font/on_park"/>
+
+            <!-- 하단 버튼 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="더보기"
+                android:textSize="13sp"
+                android:textColor="@color/accent_blue"
+                android:fontFamily="@font/on_park"
+                android:paddingVertical="4dp"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_journal"
+                app:drawableTint="@color/accent_blue"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

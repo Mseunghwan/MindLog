@@ -5,13 +5,16 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.letscouncil.adapter.DiaryAdapter
+import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.database.DiaryDatabase
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.databinding.ActivityDataBinding
 import com.example.letscouncil.databinding.ItemDiaryBinding
 import com.example.letscouncil.viewmodel.DiaryViewModel
+import kotlinx.coroutines.launch
 
 class DataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding
@@ -23,8 +26,10 @@ class DataActivity : AppCompatActivity() {
         binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Toolbar 설정
-        setupToolbar()
+        // 뒤로가기 버튼 클릭 리스너 설정
+        binding.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         // ViewModelProvider로 ViewModel 초기화
         viewModel = ViewModelProvider(this)[DiaryViewModel::class.java]
@@ -32,11 +37,14 @@ class DataActivity : AppCompatActivity() {
         // RecyclerView 설정
         setupRecyclerView()
 
-        // 데이터 가져오기
+        // 현재 월의 일기 개수 관찰
+        viewModel.getCurrentMonthEntriesCount().observe(this) { count ->
+            binding.monthlyCount.text = "${count}개"
+        }
+
+        // 전체 일기 데이터 관찰
         viewModel.getAllEntries().observe(this) { entries ->
             if (entries == null || entries.isEmpty()) {
-                Log.d("DataActivity", "No entries found")
-                // 빈 상태 UI 업데이트
                 binding.recyclerView.visibility = View.GONE
                 binding.emptyStateText.visibility = View.VISIBLE
             } else {
@@ -46,24 +54,14 @@ class DataActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar) // XML에 정의된 Toolbar를 앱바로 설정
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
-            setDisplayShowHomeEnabled(true)
-        }
-
-        binding.toolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-    }
-
+    // DataActivity.kt
     private fun setupRecyclerView() {
-        diaryAdapter = DiaryAdapter(emptyList())
+        val userPreferences = UserPreferences(this)
+        diaryAdapter = DiaryAdapter(emptyList(), userPreferences)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@DataActivity)
             adapter = diaryAdapter
+            overScrollMode = View.OVER_SCROLL_NEVER
         }
     }
 }

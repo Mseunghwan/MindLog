@@ -1,64 +1,92 @@
 package com.example.letscouncil.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.letscouncil.AIMenuActivity
-import com.example.letscouncil.CounselActivity
-import com.example.letscouncil.DataActivity
+import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.databinding.ItemDiaryBinding
+import com.example.letscouncil.databinding.ItemDiaryHeaderBinding
+import java.util.*
 
-class DiaryAdapter(private var diaryEntries: List<DiaryEntry>) :
-    RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder>() {
+class DiaryAdapter(
+    private var diaryEntries: List<DiaryEntry>,
+    private val userPreferences: UserPreferences
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // ViewHolder 클래스 정의
-    class DiaryViewHolder(private val binding: ItemDiaryBinding) :
+    companion object {
+        private const val VIEW_TYPE_HEADER = 0
+        private const val VIEW_TYPE_ITEM = 1
+    }
+
+    inner class HeaderViewHolder(private val binding: ItemDiaryHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(entry: DiaryEntry, onItemClick: (Int) -> Unit) {
-            binding.dateText.text = formatDate(entry.date)
-            binding.contentText.text = entry.content
+        fun bind() {
+            val user = userPreferences.getUser()
+            binding.headerText.text = "${user?.name ?: "나"}의 일기 시작"
+            binding.headerSubText.text = "지금부터 당신의 이야기가 시작됩니다"
+        }
+    }
 
-            // 확장 상태에 따라 텍스트의 최대 줄 수 설정
-            binding.contentText.maxLines = if (entry.isExpanded) Int.MAX_VALUE else 3
+    inner class DiaryViewHolder(private val binding: ItemDiaryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(entry: DiaryEntry) {
+            val calendar = Calendar.getInstance().apply {
+                timeInMillis = entry.date
+            }
+
+            binding.dayText.text = calendar.get(Calendar.DAY_OF_MONTH).toString()
+            binding.monthText.text = "${calendar.get(Calendar.MONTH) + 1}월"
+
+            binding.contentText.text = entry.content
+            binding.contentText.maxLines = if (entry.isExpanded) Int.MAX_VALUE else 4
             binding.contentText.ellipsize = if (entry.isExpanded) null else android.text.TextUtils.TruncateAt.END
 
-            // 클릭 이벤트 설정
             binding.textdata.setOnClickListener {
-                onItemClick(adapterPosition) // 클릭된 아이템의 위치 전달
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION && pos < diaryEntries.size) {
+                    diaryEntries[pos].isExpanded = !diaryEntries[pos].isExpanded
+                    notifyItemChanged(pos)
+                }
             }
         }
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount - 1) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
+    }
 
-        // 날짜 형식 변환 함수
-        private fun formatDate(timestamp: Long): String {
-            val formatter = java.text.SimpleDateFormat("yyyy년 MM월 dd일", java.util.Locale.getDefault())
-            return formatter.format(java.util.Date(timestamp))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                val binding = ItemDiaryHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                HeaderViewHolder(binding)
+            }
+            else -> {
+                val binding = ItemDiaryBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                DiaryViewHolder(binding)
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryViewHolder {
-        val binding = ItemDiaryBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return DiaryViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: DiaryViewHolder, position: Int) {
-        val entry = diaryEntries[position]
-        holder.bind(entry) { clickedPosition ->
-            // 확장 상태 토글
-            diaryEntries[clickedPosition].isExpanded = !diaryEntries[clickedPosition].isExpanded
-            notifyItemChanged(clickedPosition) // 변경된 아이템만 갱신
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HeaderViewHolder -> holder.bind()
+            is DiaryViewHolder -> {
+                if (position < diaryEntries.size) {  // 안전하게 체크
+                    val entry = diaryEntries[position]
+                    holder.bind(entry)
+                }
+            }
         }
     }
 
-    override fun getItemCount(): Int = diaryEntries.size
+    override fun getItemCount(): Int = diaryEntries.size + 1 // 헤더 포함
 
-    // 데이터 업데이트 함수
     fun updateEntries(newEntries: List<DiaryEntry>) {
         diaryEntries = newEntries
         notifyDataSetChanged()

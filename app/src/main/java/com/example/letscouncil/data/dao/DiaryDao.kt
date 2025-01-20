@@ -36,4 +36,10 @@ interface DiaryDao {
     @Query("SELECT MAX(date) FROM diary_entries")
     fun getLatestDiaryDate(): Flow<Long?>
 
+    @Query("""
+        SELECT COUNT(*) FROM diary_entries 
+        WHERE strftime('%Y-%m', datetime(date/1000, 'unixepoch')) = 
+        strftime('%Y-%m', 'now')
+    """)
+    fun getCurrentMonthEntriesCount(): Flow<Int>
 }
