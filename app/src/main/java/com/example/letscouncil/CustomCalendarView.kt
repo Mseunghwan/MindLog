@@ -1,18 +1,16 @@
 package com.example.letscouncil
 
 import android.content.Context
+import android.graphics.Color
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.example.letscouncil.R
+import androidx.core.content.ContextCompat
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.CalendarMode
-import com.example.letscouncil.feature.chat.ChatViewModel
 import java.util.Calendar
 
 class CustomCalendarView @JvmOverloads constructor(
@@ -23,72 +21,52 @@ class CustomCalendarView @JvmOverloads constructor(
     init {
         // 기본 설정
         state().edit()
+            .setFirstDayOfWeek(Calendar.SUNDAY)
             .setCalendarDisplayMode(CalendarMode.MONTHS)
             .commit()
 
         // 데코레이터 추가
-        addDecorator(MoodDecorator())
+        addDecorators(
+            TodayDecorator(context),
+            CurrentMonthDecorator(),
+            OtherMonthDecorator()
+        )
     }
 
-    inner class MoodDecorator : DayViewDecorator {
-        override fun shouldDecorate(calendarDay: CalendarDay): Boolean = true
+    // 오늘 날짜 데코레이터
+    inner class TodayDecorator(context: Context) : DayViewDecorator {
+        private val today = CalendarDay.today()
+        private val accentBlue = ContextCompat.getColor(context, R.color.accent_blue)
+
+        override fun shouldDecorate(day: CalendarDay): Boolean {
+            return day == today
+        }
 
         override fun decorate(view: DayViewFacade) {
-            try {
-                val customView = LayoutInflater.from(context)
-                    .inflate(R.layout.custom_calendar_view, null)
-
-                // 현재 날짜의 캘린더 인스턴스 가져오기
-                val currentDate = CalendarDay.today()
-
-                customView.findViewById<TextView>(R.id.dayNumber)?.apply {
-                    text = currentDate.day.toString()
-
-                }
-
-                // mood 이미지 설정 (예시)
-                customView.findViewById<ImageView>(R.id.moodEmoji)?.apply {
-                    visibility = View.VISIBLE
-                    setImageResource(R.drawable.ic_mood) // 기본 이미지
-                }
-
-                // 뷰에 배경 적용
-                customView.background?.let { view.setBackgroundDrawable(it) }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            view.addSpan(ForegroundColorSpan(accentBlue))
+            view.addSpan(RelativeSizeSpan(1.2f))
         }
     }
 
-    // 날짜별 감정 상태를 설정하는 메서드
-    fun setMoodForDate(date: Calendar, mood: ChatViewModel.Mood) {
-        addDecorator(object : DayViewDecorator {
-            override fun shouldDecorate(calendarDay: CalendarDay): Boolean {
-                return CalendarDay.from(date) == calendarDay
-            }
+    // 현재 달 날짜 데코레이터
+    inner class CurrentMonthDecorator : DayViewDecorator {
+        override fun shouldDecorate(day: CalendarDay): Boolean {
+            return day.month == CalendarDay.today().month
+        }
 
-            override fun decorate(view: DayViewFacade) {
-                // 해당 날짜의 감정 상태에 따른 이모지 설정
-                val moodEmoji = when (mood) {
-                    ChatViewModel.Mood.VERY_HAPPY -> R.drawable.emoji_very_happy
-                    ChatViewModel.Mood.HAPPY -> R.drawable.emoji_very_happy
-                    ChatViewModel.Mood.NEUTRAL -> R.drawable.emoji_very_happy
-                    ChatViewModel.Mood.SAD -> R.drawable.emoji_very_happy
-                    ChatViewModel.Mood.ANXIOUS -> R.drawable.emoji_very_happy
-                    ChatViewModel.Mood.ANGRY -> R.drawable.emoji_very_happy
-                }
+        override fun decorate(view: DayViewFacade) {
+            view.addSpan(ForegroundColorSpan(Color.BLACK))
+        }
+    }
 
-                val customView = LayoutInflater.from(context)
-                    .inflate(R.layout.custom_calendar_view, null)
+    // 이전/다음 달 날짜 데코레이터
+    inner class OtherMonthDecorator : DayViewDecorator {
+        override fun shouldDecorate(day: CalendarDay): Boolean {
+            return day.month != CalendarDay.today().month
+        }
 
-                customView.findViewById<ImageView>(R.id.moodEmoji)?.apply {
-                    setImageResource(moodEmoji)
-                    visibility = View.VISIBLE
-                }
-
-                customView.background?.let { view.setBackgroundDrawable(it) }
-            }
-        })
+        override fun decorate(view: DayViewFacade) {
+            view.addSpan(ForegroundColorSpan(Color.LTGRAY))
+        }
     }
 }

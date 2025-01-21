@@ -187,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="내 진짜\n마음은\n뭘까요"
+                        android:text="내 진짜\n마음은"
                         android:textColor="@color/text_primary"
                         android:textSize="20sp"
                         android:lineSpacingExtra="2dp"
@@ -313,6 +313,7 @@
                     android:id="@+id/miniCalendar"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    app:mcv_selectionColor="@color/accent_blue"
                     app:mcv_showOtherDates="all"
                     android:layout_margin="8dp"
                     tools:ignore="MissingClass" />

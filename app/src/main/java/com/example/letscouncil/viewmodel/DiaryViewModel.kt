@@ -85,5 +85,10 @@ class DiaryViewModel(application: Application) : AndroidViewModel(application) {
         return null  // 임시 반환값
     }
 
+    fun getEntryByDate(date: Long): LiveData<DiaryEntry?> {
+        return diaryDao.getEntryByDate(date).asLiveData()
+    }
+
+
 
 }

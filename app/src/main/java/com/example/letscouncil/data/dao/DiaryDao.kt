@@ -42,4 +42,5 @@ interface DiaryDao {
         strftime('%Y-%m', 'now')
     """)
     fun getCurrentMonthEntriesCount(): Flow<Int>
+
 }

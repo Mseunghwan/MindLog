@@ -3,6 +3,7 @@ package com.example.letscouncil
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo.CollectionInfo.SELECTION_MODE_SINGLE
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
@@ -60,19 +61,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupCalendar() {
         binding.miniCalendar.apply {
-            // 현재 날짜로 초기화
-            val currentDate = CalendarDay.today()
-            setCurrentDate(currentDate)
-            setSelectedDate(currentDate)
+            // 기본 설정
+            selectionMode = SELECTION_MODE_SINGLE
+            selectedDate = CalendarDay.today()
 
-            // 월, 요일 설정
-            state().edit()
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .commit()
-
-            // 날짜별 감정 상태 설정 예시
-            val calendar = Calendar.getInstance()
-            setMoodForDate(calendar, ChatViewModel.Mood.HAPPY)
+            // 날짜 선택 리스너
+            setOnDateChangedListener { _, date, selected ->
+                if (selected) {
+                    // 날짜 선택 시 처리
+                }
+            }
         }
     }
 
