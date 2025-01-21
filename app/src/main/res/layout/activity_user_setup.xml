@@ -1,136 +1,215 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brand_background"
-    android:padding="16dp">
+    android:background="@drawable/background_gradient">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
-        <!-- 상단 감성적인 문구 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="당신을 알려주세요"
-            android:paddingTop="50sp"
-            android:textColor="@color/brand_primary"
-            android:textSize="26sp"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
-
-        <!-- 사용자 정보 입력 카드 -->
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
+            android:layout_height="wrap_content">
 
-            android:layout_marginTop="50sp"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
+            <!-- 상단 프로필 이미지 섹션 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/profileSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:background="@color/white">
-
-                <!-- 이름 입력 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp" />
-
-                <EditText
-                    android:id="@+id/input_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edit_text"
-                    android:hint="이름을 입력하세요"
-                    android:padding="12dp"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- 생년월일 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="생년월일"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp" />
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="48dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                    <Spinner
-                        android:id="@+id/spinner_year"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="48dp"
-                        android:background="@drawable/rounded_spinner"
-                        android:padding="8dp" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:padding="4dp"
+                        android:src="@drawable/hello"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"
+                        app:strokeColor="@color/background_primary"
+                        app:strokeWidth="2dp"/>
 
-                    <Spinner
-                        android:id="@+id/spinner_month"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="48dp"
-                        android:background="@drawable/rounded_spinner"
-                        android:padding="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/on_park"
+                        android:text="반가워요!"
+                        android:textColor="@color/text_primary"
+                        android:textSize="32sp"/>
 
-                    <Spinner
-                        android:id="@+id/spinner_day"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="48dp"
-                        android:background="@drawable/rounded_spinner"
-                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/on_park"
+                        android:text="당신의 이야기가 시작되는 공간"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="16sp"/>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- 직업 -->
-                <TextView
+            <!-- 입력 필드 섹션 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/inputSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/profileSection">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="직업"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="16dp" />
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                <Spinner
-                    android:id="@+id/spinner_occupation"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/rounded_spinner"
-                    android:padding="8dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    <!-- 이름 입력 -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/on_park"
+                        android:text="이름"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"/>
 
-        <!-- 저장 버튼 -->
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="시작하기"
-            android:backgroundTint="@color/brand_primary"
-            android:textColor="@color/white"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-</ScrollView>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/on_park"
+                            android:inputType="textPersonName"
+                            android:paddingVertical="16dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- 생년월일 선택 -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/on_park"
+                        android:text="생년월일"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="@color/gray_200"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <Spinner
+                                android:id="@+id/spinner_year"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_weight="1.2"
+                                android:background="@null"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="8dp"
+                                android:background="@color/gray_200"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_month"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_weight="0.8"
+                                android:background="@null"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="8dp"
+                                android:background="@color/gray_200"/>
+
+                            <Spinner
+                                android:id="@+id/spinner_day"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_weight="0.8"
+                                android:background="@null"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 직업 선택 -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/on_park"
+                        android:text="직업"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="@color/gray_200"
+                        app:strokeWidth="1dp">
+
+                        <Spinner
+                            android:id="@+id/spinner_occupation"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@null"
+                            android:padding="12dp"/>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 시작하기 버튼 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/on_park"
+                android:text="나의 이야기 시작하기"
+                android:textSize="18sp"
+                app:cornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputSection"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
