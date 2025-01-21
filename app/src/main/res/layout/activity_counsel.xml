@@ -63,8 +63,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loadingAnimation"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +76,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마음을 분석하고 있어요..."
-            android:textSize="16sp"
+            android:text="일기를 분석하고 있어요..."
+            android:textSize="32sp"
             android:fontFamily="@font/on_park"
             android:textColor="@color/text_primary"
             android:layout_marginTop="16dp"

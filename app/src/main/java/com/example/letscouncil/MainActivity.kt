@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.ResourcesCompat
 import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.databinding.ActivityMainBinding
+import com.example.letscouncil.feature.chat.ChatViewModel
+import com.example.letscouncil.viewmodel.DiaryViewModel
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: DiaryViewModel by viewModels()  // ViewModel 추가
     private val levelTitles = listOf(
         "새싹 일기장",         // 1
         "초보 기록가",         // 2
@@ -52,6 +55,25 @@ class MainActivity : AppCompatActivity() {
 
         setupUI()
         setupClickListeners()
+        setupCalendar()
+    }
+
+    private fun setupCalendar() {
+        binding.miniCalendar.apply {
+            // 현재 날짜로 초기화
+            val currentDate = CalendarDay.today()
+            setCurrentDate(currentDate)
+            setSelectedDate(currentDate)
+
+            // 월, 요일 설정
+            state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .commit()
+
+            // 날짜별 감정 상태 설정 예시
+            val calendar = Calendar.getInstance()
+            setMoodForDate(calendar, ChatViewModel.Mood.HAPPY)
+        }
     }
 
     private fun setupUI() {
@@ -73,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         // Date
         val dateFormat = SimpleDateFormat(getString(R.string.date_format), Locale.getDefault())
-        binding.dateText.text = dateFormat.format(Date())
+        binding.dateText.text = dateFormat.format(Date()) + "일"
 
         // Level progress
         if (user != null) {
@@ -132,4 +154,5 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationRepeat(animation: Animation?) {}
         })
     }
+
 }

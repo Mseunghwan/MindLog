@@ -27,6 +27,7 @@
         <activity
             android:name=".CounselActivity"
             android:exported="false" />
+
         <activity
             android:name=".DataActivity"
             android:exported="false" />

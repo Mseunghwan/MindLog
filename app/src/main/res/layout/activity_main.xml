@@ -309,13 +309,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <CalendarView
+                <com.example.letscouncil.CustomCalendarView
                     android:id="@+id/miniCalendar"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:background="@color/background_primary"
-                    android:theme="@style/CalendarViewCustom"
-                    android:layout_margin="8dp"/>
+                    app:mcv_showOtherDates="all"
+                    android:layout_margin="8dp"
+                    tools:ignore="MissingClass" />
+
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

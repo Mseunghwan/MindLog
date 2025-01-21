@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,19 +14,16 @@ import com.example.letscouncil.data.entity.DiaryEntry
 import com.example.letscouncil.data.model.AggregatedAnalysis
 import com.example.letscouncil.databinding.ActivityCounselBinding
 import com.example.letscouncil.viewmodel.DiaryViewModel
-import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import kotlin.math.roundToInt
-import kotlinx.coroutines.flow.first
 
 class CounselActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCounselBinding
