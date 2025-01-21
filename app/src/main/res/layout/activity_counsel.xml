@@ -2,36 +2,69 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_gradient"
+    android:fitsSystemWindows="true">
 
+    <!-- 상단 앱바 -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_counsel"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarCounsel"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="분석 결과"
-            app:titleTextColor="@color/white"
-            app:navigationIcon="@drawable/ic_arrow_back" />
+            android:layout_height="80dp"
+            android:background="@drawable/top_section_gradient"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/white"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="마음 분석"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/on_park"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"/>
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- 로딩 화면 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loadingAnimation"
-            android:layout_width="350sp"
-            android:layout_height="350sp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,20 +76,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="감정을 분석하고 있어요..."
+            android:text="마음을 분석하고 있어요..."
             android:textSize="16sp"
+            android:fontFamily="@font/on_park"
             android:textColor="@color/text_primary"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/loadingAnimation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- 메인 컨텐츠 -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -65,167 +102,305 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- 감정 점수 카드 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="감정 분석 상세"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/purple_700"/>
+                        android:text="일주일간의 감정 흐름"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/on_park"
+                        android:textColor="@color/text_primary"/>
+
+                    <!-- 감정 시각화 영역 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="24dp">
+
+                        <!-- 큰 감정 원 -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/mainEmotionCircle"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            app:cardCornerRadius="80dp"
+                            app:cardElevation="8dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:background="@drawable/circle_gradient_background">
+
+                                <TextView
+                                    android:id="@+id/mainEmotionScore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="36sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:text="78%"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:alpha="0.9"
+                                    android:text="긍정도"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- 작은 감정 원들 -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/emotionCircle1"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:cardCornerRadius="40dp"
+                            app:cardElevation="4dp"
+                            android:layout_marginEnd="24dp"
+                            app:layout_constraintEnd_toStartOf="@id/mainEmotionCircle"
+                            app:layout_constraintTop_toTopOf="@id/mainEmotionCircle"
+                            app:layout_constraintBottom_toBottomOf="@id/mainEmotionCircle">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:background="@drawable/circle_gradient_secondary">
+
+                                <TextView
+                                    android:id="@+id/neutralScore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:text="15%"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:alpha="0.9"
+                                    android:text="중립"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/emotionCircle2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:cardCornerRadius="40dp"
+                            app:cardElevation="4dp"
+                            android:layout_marginStart="24dp"
+                            app:layout_constraintStart_toEndOf="@id/mainEmotionCircle"
+                            app:layout_constraintTop_toTopOf="@id/mainEmotionCircle"
+                            app:layout_constraintBottom_toBottomOf="@id/mainEmotionCircle">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:background="@drawable/circle_gradient_tertiary">
+
+                                <TextView
+                                    android:id="@+id/negativeScore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:text="7%"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/on_park"
+                                    android:alpha="0.9"
+                                    android:text="부정"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <!-- 감정 키워드 카드 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="주요 감정 키워드"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/on_park"
+                        android:textColor="@color/text_primary"/>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:id="@+id/tvAnalysisSummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/on_park"
+                            android:textColor="@color/text_secondary"/>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 감정 상태 카드 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="감정 상태"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/on_park"
+                        android:textColor="@color/text_primary"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="16dp">
 
-                        <!-- 긍정적 감정 프로그레스 -->
                         <TextView
                             android:id="@+id/emotion1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" "/>
+                            android:textSize="16sp"
+                            android:fontFamily="@font/on_park"
+                            android:textColor="@color/accent_blue"/>
 
-                        <ProgressBar
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
                             android:id="@+id/progress_positive"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:progress="0"
-                            android:progressTint="@color/purple_500"
-                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                            android:layout_marginTop="8dp"
+                            app:trackCornerRadius="8dp"
+                            app:indicatorColor="@color/accent_blue"/>
 
-                        <!-- 중립적 감정 프로그레스 -->
                         <TextView
                             android:id="@+id/emotion2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text=" "/>
+                            android:textSize="16sp"
+                            android:fontFamily="@font/on_park"
+                            android:textColor="@color/text_secondary"/>
 
-                        <ProgressBar
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
                             android:id="@+id/progress_neutral"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:progress="0"
-                            android:progressTint="@color/teal_200"
-                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                            android:layout_marginTop="8dp"
+                            app:trackCornerRadius="8dp"
+                            app:indicatorColor="@color/text_secondary"/>
 
-                        <!-- 부정적 감정 프로그레스 -->
                         <TextView
                             android:id="@+id/emotion3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text=" "/>
+                            android:textSize="16sp"
+                            android:fontFamily="@font/on_park"
+                            android:textColor="@color/purple_200"/>
 
-                        <ProgressBar
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
                             android:id="@+id/progress_negative"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:progress="0"
-                            android:progressTint="@color/purple_200"
-                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                            android:layout_marginTop="8dp"
+                            app:trackCornerRadius="8dp"
+                            app:indicatorColor="@color/purple_200"/>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
+            <!-- 추천 활동 카드 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="최근 드러난 감정 상태"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/purple_700"/>
-
-                    <TextView
-                        android:id="@+id/tv_analysis_summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text=" "
-                        android:textSize="16sp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="추천 활동"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/purple_700"/>
+                        android:textSize="24sp"
+                        android:fontFamily="@font/on_park"
+                        android:textColor="@color/text_primary"/>
 
                     <TextView
                         android:id="@+id/RA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text=" "
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text=" "
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text=" "
-                        android:textSize="14sp"/>
-
-
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/pieChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp" />
-
-
+                        android:layout_marginTop="16dp"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/on_park"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/text_secondary"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

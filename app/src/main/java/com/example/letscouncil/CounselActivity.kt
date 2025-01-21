@@ -245,6 +245,11 @@ class CounselActivity : AppCompatActivity() {
     }
 
     private fun updateUI(analysis: AnalysisResult) {
+        // 감정 점수 업데이트
+        binding.mainEmotionScore.text = "${analysis.positivePercent.roundToInt()}%"
+        binding.neutralScore.text = "${analysis.neutralPercent.roundToInt()}%"
+        binding.negativeScore.text = "${analysis.negativePercent.roundToInt()}%"
+
         // 감정 키워드 표시
         val keywords = JSONArray(analysis.emotionKeywords)
         val keywordsList = (0 until keywords.length()).map { keywords.getString(it) }
@@ -278,17 +283,6 @@ class CounselActivity : AppCompatActivity() {
             valueFormatter = PercentFormatter()
         }
 
-        binding.pieChart.apply {
-            data = PieData(dataSet)
-            description.isEnabled = false
-            isRotationEnabled = true
-            centerText = "감정 분포"
-            setCenterTextSize(18f)
-            animateY(1000)
-            setUsePercentValues(true)
-            invalidate()
-        }
-
         // 추천 활동 표시
         val recommendations = JSONArray(analysis.recommendations)
         binding.RA.text = if (recommendations.length() > 0) recommendations.getString(0) else ""
@@ -306,26 +300,10 @@ class CounselActivity : AppCompatActivity() {
             valueTextColor = Color.BLACK
             valueTextSize = 14f
         }
-
-        binding.pieChart.apply {
-            data = PieData(dataSet)
-            description.isEnabled = false
-            isRotationEnabled = true
-            centerText = "일주일 감정 분포"
-            setCenterTextSize(18f)
-            animateY(1000)
-            invalidate()
-        }
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(binding.toolbarCounsel)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-
-        binding.toolbarCounsel.setNavigationOnClickListener {
+        binding.backButton.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
     }
