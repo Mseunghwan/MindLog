@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_white_board"
+    android:padding="24dp"
+    android:elevation="8dp"
+    android:clipToPadding="false">
+
+    <!-- 제목 텍스트 -->
+    <TextView
+        android:id="@+id/dial_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🎉 마음씨를 찾아주셔서 감사해요!"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 내용 텍스트 -->
+    <TextView
+        android:id="@+id/dial_tv_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="21dp"
+        android:text="당신의 일기를 안전하게 보관하며, 더 나은 서비스로 함께하겠습니다.\n\n스스로를 알아가는 여정을 응원합니다!"
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorSecondary"
+        android:lineSpacingExtra="4dp"
+        app:layout_constraintTop_toBottomOf="@id/dial_tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 버튼 1 -->
+    <Button
+        android:id="@+id/dial_btn_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="?android:attr/colorAccent"
+        android:text="시작하기"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:fontFamily="@font/on_park"
+        app:layout_constraintTop_toBottomOf="@id/dial_tv_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,14 +6,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.letscouncil.databinding.ActiivityAiBinding
+import com.example.letscouncil.databinding.ActivityAiBinding
 import com.example.letscouncil.feature.chat.ChatAdapter
 import com.example.letscouncil.feature.chat.ChatViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
 class AIMenuActivity : AppCompatActivity() {
-    private lateinit var binding: ActiivityAiBinding
+    private lateinit var binding: ActivityAiBinding
     private val chatViewModel: ChatViewModel by viewModels {
         GenerativeAiViewModelFactory(application)
     }
@@ -24,7 +24,7 @@ class AIMenuActivity : AppCompatActivity() {
             .inflateTransition(R.transition.activity_fade)
 
         super.onCreate(savedInstanceState)
-        binding = ActiivityAiBinding.inflate(layoutInflater)
+        binding = ActivityAiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupToolbar()

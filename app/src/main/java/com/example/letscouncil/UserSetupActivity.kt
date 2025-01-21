@@ -1,14 +1,27 @@
 package com.example.letscouncil
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.CalendarContract
+import android.provider.Settings.Global.getString
 import android.transition.TransitionInflater
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.DialogFragment
 import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.data.model.User
 import com.example.letscouncil.databinding.ActivityUserSetupBinding
+import com.example.letscouncil.databinding.DialogLayoutBinding
+import okhttp3.internal.wait
 import java.util.Calendar
 
 class UserSetupActivity : AppCompatActivity() {
@@ -50,6 +63,9 @@ class UserSetupActivity : AppCompatActivity() {
         binding.spinnerMonth.setSelection(months.indexOf(currentMonth))
         binding.spinnerDay.setSelection(days.indexOf(currentDay))
 
+        val dialog = CustomDialog()
+        dialog.show(supportFragmentManager, "CustomDialog")
+
         // 저장 버튼 클릭 리스너
         binding.saveButton.setOnClickListener {
             val name = binding.inputName.text.toString()
@@ -65,10 +81,33 @@ class UserSetupActivity : AppCompatActivity() {
 
                 // MainActivity로 이동
                 startActivity(Intent(this, MainActivity::class.java))
+
                 finish()
             } else {
                 Toast.makeText(this, "이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+}
+class CustomDialog : DialogFragment() {
+    // 첫 시작 시 시작 축하 다이어로그
+    private var _binding: DialogLayoutBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DialogLayoutBinding.inflate(inflater, container, false)
+        val view = binding.root
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
+        binding.dialBtn1.setOnClickListener {
+            dismiss()    // 대화상자를 닫는 함수
+        }
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

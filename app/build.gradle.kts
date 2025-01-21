@@ -127,6 +127,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
 
+    implementation("androidx.compose.material3:material3:1.0.0-alpha02")
     // 중복되는 의존성 제거
     configurations.all {
         resolutionStrategy {

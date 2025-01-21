@@ -1,15 +1,21 @@
 package com.example.letscouncil
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.view.accessibility.AccessibilityNodeInfo.CollectionInfo.SELECTION_MODE_SINGLE
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.letscouncil.data.UserPreferences
 import com.example.letscouncil.databinding.ActivityMainBinding
+import com.example.letscouncil.databinding.DialogLayoutBinding
 import com.example.letscouncil.feature.chat.ChatViewModel
 import com.example.letscouncil.viewmodel.DiaryViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -82,8 +88,10 @@ class MainActivity : AppCompatActivity() {
             // 사용자 정보가 없으면 UserSetupActivity로 이동
             startActivity(Intent(this, UserSetupActivity::class.java))
             finish()
+
             return
         }
+
         // Welcome message based on time of day
         binding.welcomeText.text = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
             in 0..11 -> user!!.name + getString(R.string.welcome_morning)
@@ -152,5 +160,4 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationRepeat(animation: Animation?) {}
         })
     }
-
 }
