@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +11,10 @@ plugins {
 android {
     namespace = "com.example.letscouncil"
     compileSdk = 35
+
+    val properties = Properties()
+    properties.load(FileInputStream(rootProject.file("local.properties")))
+
 
     defaultConfig {
         applicationId = "com.example.letscouncil"
@@ -18,6 +26,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 
+        buildConfigField("String", "GEMINI_API_KEY", properties.getProperty("GEMINI_API_KEY"))
     }
 
     buildTypes {
@@ -41,10 +50,6 @@ android {
         dataBinding = true // Data Binding 활성화
         buildConfig = true
     }
-    defaultConfig {
-        buildConfigField("String", "apiKey", "\"AIzaSyB3t-QgoNfPSzmcIw1I7B7SJ2rbjneinq0\"")
-    }
-
     configurations.all {
         resolutionStrategy {
             force("androidx.core:core-ktx:1.12.0")

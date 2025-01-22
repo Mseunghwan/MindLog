@@ -10,7 +10,8 @@ import com.google.ai.client.generativeai.type.generationConfig
 import com.example.letscouncil.feature.chat.ChatViewModel
 
 class GenerativeAiViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
-    private val apiKey = "AIzaSyB3t-QgoNfPSzmcIw1I7B7SJ2rbjneinq0"
+    // APIKEY는 local.properties로 관리하여 유출을 방지합니다
+    private val apiKey = BuildConfig.GEMINI_API_KEY
 
     override fun <T : ViewModel> create(viewModelClass: Class<T>): T {
         val config = generationConfig {

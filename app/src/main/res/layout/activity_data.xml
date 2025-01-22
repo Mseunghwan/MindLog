@@ -87,7 +87,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="나만의 이야기"
+                        android:text="지난 이야기"
                         android:textSize="40sp"
                         android:textColor="@color/text_primary"
                         android:fontFamily="@font/on_park"/>
