@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.letscouncil"
+    namespace = "com.MaeumSee"
     compileSdk = 35
 
     val properties = Properties()
@@ -17,7 +17,7 @@ android {
 
 
     defaultConfig {
-        applicationId = "com.example.letscouncil"
+        applicationId = "com.MaeumSee"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

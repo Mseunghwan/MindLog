@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.letscouncil" >
+    package="com.MaeumSee" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,10 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsCouncil" >
         <activity
-            android:name=".LodingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".letscouncil.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,19 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CounselActivity"
+            android:name=".letscouncil.CounselActivity"
             android:exported="false" />
 
         <activity
-            android:name=".DataActivity"
+            android:name=".letscouncil.DataActivity"
             android:exported="false" />
         <activity
-            android:name=".WriteActivity"
+            android:name=".letscouncil.WriteActivity"
             android:exported="false" />
         <activity
-            android:name=".AIMenuActivity"
+            android:name=".letscouncil.AIMenuActivity"
             android:exported="false" />
-        <activity android:name=".UserSetupActivity" />
+        <activity android:name=".letscouncil.UserSetupActivity" />
     </application>
 
 </manifest>
