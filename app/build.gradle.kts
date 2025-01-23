@@ -1,11 +1,10 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+    id("com.google.devtools.ksp") version "1.9.0-1.0.12"
 }
 
 android {
@@ -20,13 +19,23 @@ android {
         applicationId = "com.MaeumSee"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 
         buildConfigField("String", "GEMINI_API_KEY", properties.getProperty("GEMINI_API_KEY"))
+    }
+
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(properties["STORE_FILE"] as String)
+            storePassword = properties["STORE_PASSWORD"] as String
+            keyAlias = properties["KEY_ALIAS"] as String
+            keyPassword = properties["KEY_PASSWORD"] as String
+        }
     }
 
     buildTypes {
@@ -36,6 +45,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release") // 서명 설정 연결
         }
     }
     compileOptions {
