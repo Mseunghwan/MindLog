@@ -1,12 +1,12 @@
-package com.MaeumSee.letscouncil.adapter
+package com.min.maeumsee.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.MaeumSee.databinding.ItemDiaryBinding
 import com.MaeumSee.databinding.ItemDiaryHeaderBinding
-import com.MaeumSee.letscouncil.data.UserPreferences
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
+import com.min.maeumsee.data.UserPreferences
+import com.min.maeumsee.data.entity.DiaryEntry
 import java.util.*
 
 class DiaryAdapter(

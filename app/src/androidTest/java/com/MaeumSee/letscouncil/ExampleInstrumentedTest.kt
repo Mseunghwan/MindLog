@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

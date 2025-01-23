@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil.data.entity
+package com.min.maeumsee.data.entity
 
 import java.io.Serializable
 

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsCouncil" >
         <activity
-            android:name=".letscouncil.MainActivity"
+            android:name="com.min.maeumsee.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".letscouncil.CounselActivity"
+            android:name="com.min.maeumsee.CounselActivity"
             android:exported="false" />
 
         <activity
-            android:name=".letscouncil.DataActivity"
+            android:name="com.min.maeumsee.DataActivity"
             android:exported="false" />
         <activity
-            android:name=".letscouncil.WriteActivity"
+            android:name="com.min.maeumsee.WriteActivity"
             android:exported="false" />
         <activity
-            android:name=".letscouncil.AIMenuActivity"
+            android:name="com.min.maeumsee.AIMenuActivity"
             android:exported="false" />
-        <activity android:name=".letscouncil.UserSetupActivity" />
+        <activity android:name="com.min.maeumsee.UserSetupActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityMainBinding
-import com.MaeumSee.letscouncil.data.UserPreferences
-import com.MaeumSee.letscouncil.viewmodel.DiaryViewModel
+import com.min.maeumsee.data.UserPreferences
+import com.min.maeumsee.viewmodel.DiaryViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil.feature.chat
+package com.min.maeumsee.feature.chat
 import android.app.Application
 import android.content.Context
 import android.util.Log

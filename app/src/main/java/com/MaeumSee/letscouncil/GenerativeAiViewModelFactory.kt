@@ -1,5 +1,5 @@
 // GenerativeAiViewModelFactory.kt
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.MaeumSee.BuildConfig
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.generationConfig
-import com.MaeumSee.letscouncil.feature.chat.ChatViewModel
+import com.min.maeumsee.feature.chat.ChatViewModel
 
 class GenerativeAiViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     // APIKEY는 local.properties로 관리하여 유출을 방지합니다

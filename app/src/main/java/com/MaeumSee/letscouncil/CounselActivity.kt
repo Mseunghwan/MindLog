@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,11 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import com.MaeumSee.BuildConfig
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityCounselBinding
-import com.MaeumSee.letscouncil.data.UserPreferences
-import com.MaeumSee.letscouncil.data.entity.AnalysisResult
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
-import com.MaeumSee.letscouncil.data.model.AggregatedAnalysis
-import com.MaeumSee.letscouncil.viewmodel.DiaryViewModel
+import com.min.maeumsee.data.UserPreferences
+import com.min.maeumsee.data.entity.AnalysisResult
+import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.maeumsee.data.model.AggregatedAnalysis
+import com.min.maeumsee.viewmodel.DiaryViewModel
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter

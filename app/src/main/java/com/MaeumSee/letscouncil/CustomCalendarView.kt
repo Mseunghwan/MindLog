@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.content.Context
 import android.graphics.Color

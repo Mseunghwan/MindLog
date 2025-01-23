@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.MaeumSee.databinding.ActivityDataBinding
-import com.MaeumSee.letscouncil.adapter.DiaryAdapter
-import com.MaeumSee.letscouncil.data.UserPreferences
-import com.MaeumSee.letscouncil.viewmodel.DiaryViewModel
+import com.min.maeumsee.adapter.DiaryAdapter
+import com.min.maeumsee.data.UserPreferences
+import com.min.maeumsee.viewmodel.DiaryViewModel
 
 class DataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding

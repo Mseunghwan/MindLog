@@ -1,12 +1,12 @@
-package com.MaeumSee.letscouncil.data.database
+package com.min.maeumsee.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.MaeumSee.letscouncil.data.dao.DiaryDao
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
-import com.MaeumSee.letscouncil.data.entity.AnalysisResult
+import com.min.maeumsee.data.dao.DiaryDao
+import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.maeumsee.data.entity.AnalysisResult
 
 @Database(
     entities = [DiaryEntry::class, AnalysisResult::class],  // AnalysisResult 엔티티 추가

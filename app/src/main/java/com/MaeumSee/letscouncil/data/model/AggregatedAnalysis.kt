@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil.data.model
+package com.min.maeumsee.data.model
 
 data class AggregatedAnalysis(
     val positivePercent: Float,

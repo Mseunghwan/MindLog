@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil.feature.chat
+package com.min.maeumsee.feature.chat
 
 data class ChatMessage(
     val content: String,

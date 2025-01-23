@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil.feature.chat
+package com.min.maeumsee.feature.chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

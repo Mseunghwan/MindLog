@@ -1,4 +1,4 @@
-package com.MaeumSee.letscouncil
+package com.min.maeumsee
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityWriteBinding
-import com.MaeumSee.letscouncil.data.UserPreferences
-import com.MaeumSee.letscouncil.viewmodel.DiaryViewModel
+import com.min.maeumsee.data.UserPreferences
+import com.min.maeumsee.viewmodel.DiaryViewModel
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding

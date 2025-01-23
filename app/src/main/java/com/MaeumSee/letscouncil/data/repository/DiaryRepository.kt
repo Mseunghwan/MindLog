@@ -1,9 +1,9 @@
-package com.MaeumSee.letscouncil.data.repository
+package com.min.maeumsee.data.repository
 
 import androidx.lifecycle.LiveData
-import com.MaeumSee.letscouncil.data.dao.DiaryDao
-import com.MaeumSee.letscouncil.data.entity.AnalysisResult
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
+import com.min.maeumsee.data.dao.DiaryDao
+import com.min.maeumsee.data.entity.AnalysisResult
+import com.min.maeumsee.data.entity.DiaryEntry
 import kotlinx.coroutines.flow.Flow
 
 class DiaryRepository(private val diaryDao: DiaryDao) {

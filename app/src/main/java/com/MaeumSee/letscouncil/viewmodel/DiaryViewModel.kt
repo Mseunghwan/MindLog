@@ -1,16 +1,16 @@
-package com.MaeumSee.letscouncil.viewmodel
+package com.min.maeumsee.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.MaeumSee.letscouncil.data.dao.DiaryDao
-import com.MaeumSee.letscouncil.data.database.DiaryDatabase
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
-import com.MaeumSee.letscouncil.data.entity.AnalysisResult
-import com.MaeumSee.letscouncil.data.repository.DiaryRepository
-import com.MaeumSee.letscouncil.feature.chat.ChatViewModel
+import com.min.maeumsee.data.dao.DiaryDao
+import com.min.maeumsee.data.database.DiaryDatabase
+import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.maeumsee.data.entity.AnalysisResult
+import com.min.maeumsee.data.repository.DiaryRepository
+import com.min.maeumsee.feature.chat.ChatViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

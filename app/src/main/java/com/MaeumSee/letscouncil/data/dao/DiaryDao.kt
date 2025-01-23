@@ -1,9 +1,9 @@
-package com.MaeumSee.letscouncil.data.dao
+package com.min.maeumsee.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.MaeumSee.letscouncil.data.entity.AnalysisResult
-import com.MaeumSee.letscouncil.data.entity.DiaryEntry
+import com.min.maeumsee.data.entity.AnalysisResult
+import com.min.maeumsee.data.entity.DiaryEntry
 import kotlinx.coroutines.flow.Flow
 
 @Dao

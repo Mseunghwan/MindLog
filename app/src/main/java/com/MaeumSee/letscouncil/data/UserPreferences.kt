@@ -1,8 +1,8 @@
-package com.MaeumSee.letscouncil.data
+package com.min.maeumsee.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.MaeumSee.letscouncil.data.model.User
+import com.min.maeumsee.data.model.User
 
 class UserPreferences(context: Context) {
     private val sharedPreferences: SharedPreferences =

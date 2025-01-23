@@ -1,5 +1,5 @@
 // AnalysisResult.kt
-package com.MaeumSee.letscouncil.data.entity
+package com.min.maeumsee.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
