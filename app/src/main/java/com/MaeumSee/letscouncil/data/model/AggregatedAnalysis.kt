@@ -1,4 +1,4 @@
-package com.min.maeumsee.data.model
+package com.min.mindlog.data.model
 
 data class AggregatedAnalysis(
     val positivePercent: Float,

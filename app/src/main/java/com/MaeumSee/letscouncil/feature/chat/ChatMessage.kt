@@ -1,4 +1,4 @@
-package com.min.maeumsee.feature.chat
+package com.min.mindlog.feature.chat
 
 data class ChatMessage(
     val content: String,

@@ -1,4 +1,4 @@
-package com.min.maeumsee.feature.chat
+package com.min.mindlog.feature.chat
 import android.app.Application
 import android.content.Context
 import android.util.Log

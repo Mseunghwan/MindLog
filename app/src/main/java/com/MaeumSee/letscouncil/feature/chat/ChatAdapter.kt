@@ -1,4 +1,4 @@
-package com.min.maeumsee.feature.chat
+package com.min.mindlog.feature.chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

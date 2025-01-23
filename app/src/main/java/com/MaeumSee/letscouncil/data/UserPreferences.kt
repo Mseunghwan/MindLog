@@ -1,8 +1,8 @@
-package com.min.maeumsee.data
+package com.min.mindlog.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.min.maeumsee.data.model.User
+import com.min.mindlog.data.model.User
 
 class UserPreferences(context: Context) {
     private val sharedPreferences: SharedPreferences =

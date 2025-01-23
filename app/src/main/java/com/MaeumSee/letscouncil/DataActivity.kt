@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.MaeumSee.databinding.ActivityDataBinding
-import com.min.maeumsee.adapter.DiaryAdapter
-import com.min.maeumsee.data.UserPreferences
-import com.min.maeumsee.viewmodel.DiaryViewModel
+import com.min.mindlog.adapter.DiaryAdapter
+import com.min.mindlog.data.UserPreferences
+import com.min.mindlog.viewmodel.DiaryViewModel
 
 class DataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding

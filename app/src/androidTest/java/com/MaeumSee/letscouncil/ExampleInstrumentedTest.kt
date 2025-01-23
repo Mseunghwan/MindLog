@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

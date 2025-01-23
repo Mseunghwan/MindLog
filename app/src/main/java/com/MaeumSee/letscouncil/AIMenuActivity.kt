@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 import android.os.Bundle
 import android.transition.TransitionInflater
 import androidx.activity.viewModels
@@ -8,8 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityAiBinding
-import com.min.maeumsee.feature.chat.ChatAdapter
-import com.min.maeumsee.feature.chat.ChatViewModel
+import com.min.mindlog.feature.chat.ChatAdapter
+import com.min.mindlog.feature.chat.ChatViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 

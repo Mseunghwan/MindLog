@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 
 import android.content.Context
 import android.graphics.Color

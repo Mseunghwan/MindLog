@@ -1,12 +1,12 @@
-package com.min.maeumsee.adapter
+package com.min.mindlog.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.MaeumSee.databinding.ItemDiaryBinding
 import com.MaeumSee.databinding.ItemDiaryHeaderBinding
-import com.min.maeumsee.data.UserPreferences
-import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.mindlog.data.UserPreferences
+import com.min.mindlog.data.entity.DiaryEntry
 import java.util.*
 
 class DiaryAdapter(

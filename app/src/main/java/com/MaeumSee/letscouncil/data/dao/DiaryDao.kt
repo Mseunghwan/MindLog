@@ -1,9 +1,9 @@
-package com.min.maeumsee.data.dao
+package com.min.mindlog.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.min.maeumsee.data.entity.AnalysisResult
-import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.mindlog.data.entity.AnalysisResult
+import com.min.mindlog.data.entity.DiaryEntry
 import kotlinx.coroutines.flow.Flow
 
 @Dao

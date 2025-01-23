@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsCouncil" >
         <activity
-            android:name="com.min.maeumsee.MainActivity"
+            android:name="com.min.mindlog.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.min.maeumsee.CounselActivity"
+            android:name="com.min.mindlog.CounselActivity"
             android:exported="false" />
 
         <activity
-            android:name="com.min.maeumsee.DataActivity"
+            android:name="com.min.mindlog.DataActivity"
             android:exported="false" />
         <activity
-            android:name="com.min.maeumsee.WriteActivity"
+            android:name="com.min.mindlog.WriteActivity"
             android:exported="false" />
         <activity
-            android:name="com.min.maeumsee.AIMenuActivity"
+            android:name="com.min.mindlog.AIMenuActivity"
             android:exported="false" />
-        <activity android:name="com.min.maeumsee.UserSetupActivity" />
+        <activity android:name="com.min.mindlog.UserSetupActivity" />
     </application>
 
 </manifest>

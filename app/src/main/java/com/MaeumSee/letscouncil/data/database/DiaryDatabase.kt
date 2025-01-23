@@ -1,12 +1,12 @@
-package com.min.maeumsee.data.database
+package com.min.mindlog.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.min.maeumsee.data.dao.DiaryDao
-import com.min.maeumsee.data.entity.DiaryEntry
-import com.min.maeumsee.data.entity.AnalysisResult
+import com.min.mindlog.data.dao.DiaryDao
+import com.min.mindlog.data.entity.DiaryEntry
+import com.min.mindlog.data.entity.AnalysisResult
 
 @Database(
     entities = [DiaryEntry::class, AnalysisResult::class],  // AnalysisResult 엔티티 추가

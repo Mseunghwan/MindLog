@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -15,8 +15,8 @@ import androidx.fragment.app.DialogFragment
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityUserSetupBinding
 import com.MaeumSee.databinding.DialogLayoutBinding
-import com.min.maeumsee.data.UserPreferences
-import com.min.maeumsee.data.model.User
+import com.min.mindlog.data.UserPreferences
+import com.min.mindlog.data.model.User
 import java.util.Calendar
 
 class UserSetupActivity : AppCompatActivity() {

@@ -1,9 +1,9 @@
-package com.min.maeumsee.data.repository
+package com.min.mindlog.data.repository
 
 import androidx.lifecycle.LiveData
-import com.min.maeumsee.data.dao.DiaryDao
-import com.min.maeumsee.data.entity.AnalysisResult
-import com.min.maeumsee.data.entity.DiaryEntry
+import com.min.mindlog.data.dao.DiaryDao
+import com.min.mindlog.data.entity.AnalysisResult
+import com.min.mindlog.data.entity.DiaryEntry
 import kotlinx.coroutines.flow.Flow
 
 class DiaryRepository(private val diaryDao: DiaryDao) {

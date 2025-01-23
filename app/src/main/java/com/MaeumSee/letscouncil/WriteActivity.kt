@@ -1,4 +1,4 @@
-package com.min.maeumsee
+package com.min.mindlog
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityWriteBinding
-import com.min.maeumsee.data.UserPreferences
-import com.min.maeumsee.viewmodel.DiaryViewModel
+import com.min.mindlog.data.UserPreferences
+import com.min.mindlog.viewmodel.DiaryViewModel
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding

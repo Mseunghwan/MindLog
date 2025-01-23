@@ -1,5 +1,5 @@
 // AnalysisResult.kt
-package com.min.maeumsee.data.entity
+package com.min.mindlog.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

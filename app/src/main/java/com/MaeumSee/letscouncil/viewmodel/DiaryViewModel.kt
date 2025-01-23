@@ -1,16 +1,16 @@
-package com.min.maeumsee.viewmodel
+package com.min.mindlog.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.min.maeumsee.data.dao.DiaryDao
-import com.min.maeumsee.data.database.DiaryDatabase
-import com.min.maeumsee.data.entity.DiaryEntry
-import com.min.maeumsee.data.entity.AnalysisResult
-import com.min.maeumsee.data.repository.DiaryRepository
-import com.min.maeumsee.feature.chat.ChatViewModel
+import com.min.mindlog.data.dao.DiaryDao
+import com.min.mindlog.data.database.DiaryDatabase
+import com.min.mindlog.data.entity.DiaryEntry
+import com.min.mindlog.data.entity.AnalysisResult
+import com.min.mindlog.data.repository.DiaryRepository
+import com.min.mindlog.feature.chat.ChatViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

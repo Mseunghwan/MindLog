@@ -1,4 +1,4 @@
-package com.min.maeumsee.data.entity
+package com.min.mindlog.data.entity
 
 import java.io.Serializable
 
