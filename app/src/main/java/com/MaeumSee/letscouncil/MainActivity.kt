@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityMainBinding
 import com.MaeumSee.letscouncil.data.UserPreferences
@@ -18,7 +19,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: DiaryViewModel by viewModels()  // ViewModel 추가
     private val levelTitles = listOf(
         "새싹 일기장",         // 1
         "초보 기록가",         // 2
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         // 자정이 지나면 today_written 초기화 - for manage point
         val userPreferences = UserPreferences(this)
