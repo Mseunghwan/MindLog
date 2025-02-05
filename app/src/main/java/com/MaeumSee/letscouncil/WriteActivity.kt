@@ -11,6 +11,7 @@ import com.MaeumSee.R
 import com.MaeumSee.databinding.ActivityWriteBinding
 import com.min.mindlog.data.UserPreferences
 import com.min.mindlog.viewmodel.DiaryViewModel
+import java.util.Calendar
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
@@ -63,19 +64,30 @@ class WriteActivity : AppCompatActivity() {
         if (content.isNotBlank() && content != "글을 입력해주세요") {
             viewModel.saveDiary(content)
 
-            // 오늘 첫 작성인 경우에만 포인트 지급
-            if (!userPreferences.getTodayWritten()) {
+            // 현재 날짜의 시작시간(0시 0분 0초)을 가져옴
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            val todayStart = calendar.timeInMillis
+
+            // 마지막 작성 날짜와 비교
+            val lastWrittenDate = userPreferences.getLastWrittenDate()
+
+            if (lastWrittenDate < todayStart) {
+                // 오늘 처음 작성하는 경우
                 if (user != null) {
                     user.score += 20
                     userPreferences.saveUser(user)
                 }
-                userPreferences.setTodayWritten(true)
+                userPreferences.setLastWrittenDate(System.currentTimeMillis())
                 Toast.makeText(this, "일기가 저장되었습니다. +20 포인트를 획득했어요!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
 
-            Log.e("user", user.toString())
             finish()
         } else {
             Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()

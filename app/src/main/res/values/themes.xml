@@ -93,4 +93,5 @@
         <item name="android:fontFamily">@font/on_park</item>
         <item name="android:textColor">@color/text_secondary</item>
     </style>
+
 </resources>

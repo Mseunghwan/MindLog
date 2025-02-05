@@ -35,14 +35,14 @@ class UserPreferences(context: Context) {
         }
     }
 
-    // 오늘 일기 작성 여부 저장 for point
-    fun setTodayWritten(written: Boolean) {
-        sharedPreferences.edit().putBoolean("today_written", written).apply()
+    // 마지막 작성 날짜 저장
+    fun setLastWrittenDate(date: Long) {
+        sharedPreferences.edit().putLong("last_written_date", date).apply()
     }
 
-    // 오늘 일기 작성 여부 확인
-    fun getTodayWritten(): Boolean {
-        return sharedPreferences.getBoolean("today_written", false)
+    // 마지막 작성 날짜 가져오기
+    fun getLastWrittenDate(): Long {
+        return sharedPreferences.getLong("last_written_date", 0)
     }
 
 }

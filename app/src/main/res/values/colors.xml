@@ -63,5 +63,12 @@
     <color name="card_diary">#F5F5F7</color>
     <color name="card_chat">#FBFBFD</color>
 
+    <!-- Calendar Colors -->
+    <color name="calendar_background">#F8FBFF</color>
+    <color name="calendar_selection">#33A8D1DE</color>
+    <color name="calendar_text">#334257</color>
+    <color name="weekend_gray">#B0C4D9</color>
+    <color name="soft_blue">#A8D1DE</color>
+
 </resources>
 
