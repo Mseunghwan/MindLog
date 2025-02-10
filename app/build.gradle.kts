@@ -19,7 +19,7 @@ android {
         applicationId = "com.MaeumSee"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
+        versionCode = 4
         versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -31,7 +31,17 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file(properties["STORE_FILE"] as String)
+            val keystorePath = properties.getProperty("STORE_FILE")?.trim()
+
+            // 🛠 디버깅: 로그로 경로 확인
+            println("🔥 Keystore Path: '$keystorePath'")
+
+            // 🚨 null 또는 비어 있는 값이면 오류 던지기
+            if (keystorePath.isNullOrEmpty()) {
+                throw GradleException("🚨 STORE_FILE 경로가 비어 있거나 null입니다! local.properties를 확인하세요.")
+            }
+
+            storeFile = File(keystorePath) // 👉 File() 객체로 감싸기
             storePassword = properties["STORE_PASSWORD"] as String
             keyAlias = properties["KEY_ALIAS"] as String
             keyPassword = properties["KEY_PASSWORD"] as String
