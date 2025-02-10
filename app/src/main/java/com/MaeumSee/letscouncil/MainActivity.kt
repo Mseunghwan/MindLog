@@ -126,12 +126,6 @@ class MainActivity : AppCompatActivity() {
             animateCardClick(it)
             startActivity(Intent(this, DataActivity::class.java))
         }
-
-        // Chat card click listener
-        binding.chatCard.setOnClickListener {
-            animateCardClick(it)
-            startActivity(Intent(this, AIMenuActivity::class.java))
-        }
     }
 
     private fun animateCardClick(view: View) {

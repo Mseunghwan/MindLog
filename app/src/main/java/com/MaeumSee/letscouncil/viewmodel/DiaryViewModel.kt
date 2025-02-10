@@ -10,15 +10,11 @@ import com.min.mindlog.data.database.DiaryDatabase
 import com.min.mindlog.data.entity.DiaryEntry
 import com.min.mindlog.data.entity.AnalysisResult
 import com.min.mindlog.data.repository.DiaryRepository
-import com.min.mindlog.feature.chat.ChatViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import java.util.Date
-
 class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: DiaryRepository
     private val _allEntries: LiveData<List<DiaryEntry>>
@@ -71,24 +67,5 @@ class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     fun saveAnalysisResult(analysis: AnalysisResult) = viewModelScope.launch {
         repository.saveAnalysis(analysis)
     }
-
-    fun getMoodForDate(date: Date): ChatViewModel.Mood? {
-        // Room DB에서 해당 날짜의 일기 데이터를 조회하여 감정 반환
-        viewModelScope.launch {
-            val diary = diaryDao.getEntryByDate(date.time).firstOrNull()
-            // 일기의 감정 분석 결과를 Mood로 변환하여 반환
-            diary?.let {
-                // 감정 분석 결과를 기반으로 적절한 Mood 반환
-                // 이 부분은 감정 분석 결과 저장 방식에 따라 구현
-            }
-        }
-        return null  // 임시 반환값
-    }
-
-    fun getEntryByDate(date: Long): LiveData<DiaryEntry?> {
-        return diaryDao.getEntryByDate(date).asLiveData()
-    }
-
-
 
 }
