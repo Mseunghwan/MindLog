@@ -86,6 +86,8 @@ class MainActivity : AppCompatActivity() {
             else -> user!!.name + getString(R.string.welcome_evening)
         }
 
+        binding.analyzeText.text = user!!.name + "의\n패턴은?"
+
         // Date
         val dateFormat = SimpleDateFormat(getString(R.string.date_format), Locale.getDefault())
         binding.dateText.text = dateFormat.format(Date()) + "일"
