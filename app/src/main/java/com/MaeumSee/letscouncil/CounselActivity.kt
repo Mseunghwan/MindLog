@@ -33,7 +33,7 @@ class CounselActivity : AppCompatActivity() {
     private lateinit var userPreferences: UserPreferences
     private val generativeModel = GenerativeModel(
         modelName = "gemini-1.5-flash",
-        // APIKEY는 local.properties로 관리하여 유출을 방지합니다
+        // APIKEY는 local.properties로 관리하여 유출을 방지합니다 - 바꿔야 합니다
         apiKey = BuildConfig.GEMINI_API_KEY
     )
 
