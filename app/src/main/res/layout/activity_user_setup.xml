@@ -204,7 +204,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/on_park"
-                android:text="나의 이야기 시작하기"
+                android:text="시작하기"
                 android:textSize="18sp"
                 app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
